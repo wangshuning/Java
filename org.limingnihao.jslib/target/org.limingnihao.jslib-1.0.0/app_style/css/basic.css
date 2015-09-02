@@ -1,0 +1,225 @@
+body {
+	width: 100%;
+	height: auto;
+	padding: 0;
+	margin: 0 auto 0 auto;
+	border: none;
+	font-family: "微软雅黑";
+	background: transparent url(../images/bg/bg_body.png) repeat scroll 0 0;
+}
+
+img {
+	border: none;
+}
+
+@font-face { 
+  font-family: adobe_heiti; /*这里是说明调用来的字体名字*/ 
+  src: url(../fonts/AdobeHeiti.otf); /*这里是字体文件路径*/ 
+} 
+
+#body_content {
+	width: 1000px;
+	height: 100%;
+	padding: 0;
+	margin: 0 auto 0 auto;
+	border: none;
+}
+
+/** 顶层 */
+#header_div {
+	position: relative;
+	width: 1000px;
+	height: 80px;
+	padding: 0 0 0 0;;
+	margin: 30px 0 0 0;
+	top: 0;
+	left: auto;
+	right: auto;
+	bottom: 0;
+	border: none;
+	background: transparent url(../images/icon/head_logo.png) no-repeat scroll 0 0;
+}
+
+/** 导航条 */
+#navigate_div {
+	position: relative;
+	width: 1000px;
+	height: 65px;
+	padding: 0 0 0 220px;
+	margin: 20px 0 0 0;
+	top: 0;
+	left: auto;
+	right: auto;
+	bottom: 0;
+	border: none;
+	background: transparent url(../images/bg/bg_navigate.png) no-repeat scroll 0 0;
+}
+
+/** 导航标题 */
+#navigate_title_div {
+	position: absolute;
+	width: 1000px;
+	height: 36px;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	top: 134px;
+	left: auto;
+	right: auto;
+	bottom: 0;
+	border: none;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	color: #444e54;
+	line-height: 36px;
+	vertical-align: middle;
+	z-index: -1;
+}
+
+/** 导航分隔线 */
+#navigate_line_div {
+	position: absolute;
+	width: 1000px;
+	height: 1px;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	top: 170px;
+	left: auto;
+	right: auto;
+	bottom: 0;
+	border-top: 1px solid #b9b9b9;
+	z-index: -1;
+}
+
+/** 内容层 */
+#center_div {
+	position: absolute;
+	width: 1000px;
+	height: 580px;
+	top: 210px;
+	left: auto;
+	right: auto;
+    padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	bottom: 0;
+	border: none;
+	z-index: -1;
+}
+
+#ext_content_div {
+	width: 1000px;
+	height: 100%;
+	margin: 0 auto 0 auto;
+	padding: 0;
+}
+
+/* 个人信息  */
+#personal_set_div {
+	display: none;
+	float: right;
+	width: 300px;
+	height: 65px;
+	border: none;
+	padding: 30px 0 0 0;
+	margin: 0;
+	color: #333b62;
+	font-family: "微软雅黑";
+	font-size: 16px;
+	line-height: 21px;
+	text-align: right;
+}
+
+#button_changePassword {
+	display: none;
+	float: right;
+	width: 70px;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#button_logout {
+	display: none;
+	float: right;
+	width: 40px;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#welcome {
+	display: none;
+	width: 300px;
+	float: right;
+	color: #ffffff;
+}
+
+#version_set_div {
+	float: right;
+	margin: 0 0 0 0px;
+	padding: 15px 26px 0 0;
+	color: #ffffff;
+	font-family: "adobe_heiti";
+	font-size: 12px;
+	line-height: 12px;
+}
+
+/** 导航按钮 */
+.navigate_content_div {
+	float: left;
+	width: 116px;
+	font-family: "adobe_heiti";
+	font-size: 15px;
+	margin: 16px 0 0 20px;
+	padding: 0;
+}
+
+.navigate_menu_div, .navigate_menu_div_hover, .navigate_menu_div_selected {
+	float: left;
+	padding: 0;
+	margin: 0;
+	width: 116px;
+	height: 32px;
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+	text-align: center;
+	line-height: 32px;
+	vertical-align: middle;
+	color: #ffffff;
+}
+
+.navigate_menu_div_hover {
+	color: #ffce8e;
+	background: transparent url(../images/bg/bg_navigate_menu_hover.png) no-repeat scroll 0 0;
+}
+.navigate_menu_div_selected {
+	color: #ffce8e;
+	background: transparent url(../images/bg/bg_navigate_menu_hover.png) no-repeat scroll 0 0;
+}
+.navigate_item_div, .navigate_item_div:HOVER{
+	display: none;
+	float: left;
+	padding: 0;
+	margin: 1px 0 0 0;
+	width: 116px;
+	height: 32px;
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+	text-align: center;
+	line-height: 32px;
+	vertical-align: middle;
+	color: #ffce8e;
+}
+.navigate_item_div{
+	background: transparent url(../images/bg/bg_navigate_item_hover.png) no-repeat scroll 0 0;
+}
+.navigate_item_div:HOVER{
+	color: #ffffff;
+}
+.navigate_arrow_div{
+	display: none;
+	float: left;
+	width: 12px;
+	height: 6px;
+	margin: 9px 0 0 52px;
+	background: transparent url(../images/icon/arrow.png) no-repeat scroll 0 0;
+}

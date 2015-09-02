@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 默认目录 -->
+<decorators>
+
+	<excludes>
+		<pattern>*.html</pattern>
+		<pattern>*.js</pattern>
+		<pattern>*.css</pattern>
+	</excludes>
+	
+    <!-- 缺省装饰页 -->
+    <decorator name="main" page="/WEB-INF/common/decorator.html">
+        <pattern>/*</pattern>
+    </decorator>
+     
+</decorators>

@@ -1,0 +1,16 @@
+#error_div {
+	width: 500px;
+	height: 337px;
+	margin: 40px auto 0 auto;
+	padding: 0;
+	background: transparent url(../images/bg/bg_error.png) no-repeat scroll 0 0;
+}
+
+#error_message {
+	height: 100px;
+	padding: 32px 0px 0px 262px;
+	font-size: 18px;
+	font-weight: bold;
+	font-family: "微软雅黑";
+	color: #333544;
+}
