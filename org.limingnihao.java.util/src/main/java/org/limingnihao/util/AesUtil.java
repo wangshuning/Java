@@ -16,9 +16,9 @@ import org.limingnihao.exception.AesErrorException;
 
 public class AesUtil {
 
-	private final static String HEX = "0123456789ABCDEF";
+	private final static String HEX = "0123456789ABCDEF";;;
 
-	private final static String CHARACTER_SET = "UTF-8";;;
+	private final static String CHARACTER_SET = "UTF-8";
 
 	public static void main(String args[]) {
 		try {
