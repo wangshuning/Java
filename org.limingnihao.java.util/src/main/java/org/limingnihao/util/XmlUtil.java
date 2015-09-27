@@ -47,10 +47,10 @@ public class XmlUtil {
 				Method method = targetObj.getClass().getMethod(methodName);
 				Object value = method.invoke(targetObj);
 				String valueString = "";
-				if (value.getClass().getName().equals(Date.class.getName())) {
+				if (value != null && value.getClass().getName().equals(Date.class.getName())) {
 					SimpleDateFormat format = new SimpleDateFormat(SIMPLE_DATE_FORMAT);
 					valueString = format.format(value);
-				} else {
+				} else if(value != null ){
 					valueString = value.toString();
 				}
 				xmlString.append("<" + fileName + ">" + valueString + "</" + fileName + ">");
