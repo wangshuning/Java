@@ -13,6 +13,7 @@ org/limingnihao/util/ClobUtil.class
 org/limingnihao/util/model/SortBean.class
 org/limingnihao/util/ByteUtil.class
 org/limingnihao/util/XmlUtil.class
+org/limingnihao/util/CSVUtil.class
 org/limingnihao/util/PathUtil.class
 org/limingnihao/util/model/WeekBean.class
 org/limingnihao/util/StringUtil.class
@@ -21,6 +22,7 @@ org/limingnihao/util/ReadProperty.class
 org/limingnihao/util/DownUtil.class
 org/limingnihao/util/HttpUtil.class
 org/limingnihao/util/Md5Util.class
+org/limingnihao/util/QRcodeUtil.class
 org/limingnihao/util/AesUtil.class
 org/limingnihao/util/ServletUtil.class
 org/limingnihao/util/ExcelUtil.class
