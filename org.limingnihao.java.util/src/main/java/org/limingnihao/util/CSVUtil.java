@@ -47,7 +47,7 @@ public class CSVUtil {
                 else if(value != null) {
                     valueString = value.toString();
                 }
-                dateString.append(valueString + ",");
+                dateString.append("\"" + valueString + "\"" + ",");
             }
         } catch (Exception e) {
             e.printStackTrace();
