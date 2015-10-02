@@ -2,6 +2,8 @@ package org.limingnihao.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -126,6 +128,17 @@ public class StringUtil {
 		}
 
 		return sb.toString();
+	}
+
+	/**
+	 * 检测是否是手机号码
+	 * @param str
+	 * @return
+	 */
+	public static boolean isMobile(String str) {
+		Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
+		Matcher m = p.matcher(str);
+		return m.matches();
 	}
 
 	public static void main(String[] args) {
