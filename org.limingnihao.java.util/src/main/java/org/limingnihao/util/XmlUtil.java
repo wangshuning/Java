@@ -24,7 +24,7 @@ import org.w3c.dom.NodeList;
  */
 public class XmlUtil {
 
-	// private static final Logger logger = LoggerFactory.getLogger(HttpUtil.class);
+	// private static final Logger logger = LoggerFactory.getLogger(HTTPUtil.class);
 
 	private static String SIMPLE_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss:SSS";
 

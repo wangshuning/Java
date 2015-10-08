@@ -23,10 +23,32 @@ public class CSVUtil {
 
     public static String listToCSV(Object[] list){
         StringBuffer dateString = new StringBuffer();
-        for(Object obj : list){
-            dateString.append(objectToCSV(obj) + "\n");
+        if(list != null && list.length > 0){
+            dateString.append(objectToCSVByFieldName(list[0]) + "\n");
+            for(Object obj : list){
+                dateString.append(objectToCSV(obj) + "\n");
+            }
         }
         return dateString.toString();
+    }
+
+    public static String objectToCSVByFieldName(Object targetObj){
+        StringBuffer dateString = new StringBuffer();
+        try {
+            for (Field field : targetObj.getClass().getDeclaredFields()) {
+                String fileName = field.getName();
+                String valueString = "";
+                dateString.append("\"" + fileName + "\"" + ",");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if(dateString.length() > 0){
+            return dateString.substring(0, dateString.length() -1);
+        }else{
+            return "";
+        }
     }
 
     public static String objectToCSV(Object targetObj) {
@@ -52,6 +74,7 @@ public class CSVUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         if(dateString.length() > 0){
             return dateString.substring(0, dateString.length() -1);
         }else{

@@ -26,9 +26,9 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HttpUtil {
+public class HTTPUtil {
 
-	private static final Logger logger = LoggerFactory.getLogger(HttpUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(HTTPUtil.class);
 
 	public static final String CONTENT_TYPE_PLAIN = "text/plain";
 	public static final String CONTENT_TYPE_XML = "text/xml";
@@ -80,7 +80,7 @@ public class HttpUtil {
 			}
 			parts[parts.length - 1] = new FilePart("fileData", file);
 			postMethod.setRequestEntity(new MultipartRequestEntity(parts, postMethod.getParams()));
-			httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(HttpUtil.TIME_OUT_HTTP);
+			httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(HTTPUtil.TIME_OUT_HTTP);
 			httpClient.executeMethod(postMethod);
 			int status = postMethod.getStatusCode();
 			logger.info("uploadFile - url=" + url + ", filePath=" + filePath + ", status=" + status);
@@ -113,7 +113,7 @@ public class HttpUtil {
 			URL url = new URL(endpoint);
 			URLConnection urlConnection = url.openConnection();
 			urlConnection.setUseCaches(false);
-			urlConnection.setConnectTimeout(HttpUtil.TIME_OUT_HTTP);
+			urlConnection.setConnectTimeout(HTTPUtil.TIME_OUT_HTTP);
 			InputStreamReader reader = new InputStreamReader(urlConnection.getInputStream(), "UTF-8");
 			BufferedReader bReader = new BufferedReader(reader);
 			StringBuffer resultBuffer = new StringBuffer();
@@ -194,7 +194,7 @@ public class HttpUtil {
 				parts[i] = partList.get(i);
 			}
 			postMethod.setRequestEntity(new MultipartRequestEntity(parts, postMethod.getParams()));
-			httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(HttpUtil.TIME_OUT_HTTP);
+			httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(HTTPUtil.TIME_OUT_HTTP);
 			httpClient.executeMethod(postMethod);
 			if (postMethod.getStatusCode() == HttpStatus.SC_OK) {
 				InputStream inputStream = postMethod.getResponseBodyAsStream();

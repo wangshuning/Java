@@ -1,4 +1,4 @@
-package org.limingnihao.util.model;
+package org.limingnihao.model;
 
 public class SortBean {
 
