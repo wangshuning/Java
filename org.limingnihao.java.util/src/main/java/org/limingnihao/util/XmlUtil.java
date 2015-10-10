@@ -34,6 +34,7 @@ public class XmlUtil {
 		// System.out.println(str);
 		// DateBean b = XmlUtil.xmlToObject(DateBean.class, str);
 		// System.out.println(b.getMonth());
+		
 	}
 
 	public static String objectToXml(Object targetObj) {
