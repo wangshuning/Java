@@ -1,4 +1,4 @@
-package org.limingnihao.model;
+package org.limingnihao.util.model;
 
 import java.util.Date;
 

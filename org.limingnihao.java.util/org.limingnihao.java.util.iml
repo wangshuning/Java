@@ -51,5 +51,6 @@
     <orderEntry type="library" name="Maven: com.google.zxing:core:3.2.0" level="project" />
     <orderEntry type="library" name="Maven: junit:junit:4.9" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
   </component>
 </module>

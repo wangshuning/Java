@@ -5,7 +5,6 @@
 	<artifactId>org.limingnihao.java.util</artifactId>
 	<version>2.0.0</version>
 	<name>org.liming.java.util</name>
-	<description>limingnihao java util jar</description>
 	<!-- 全局属性配置 -->
 	<properties>
 		<project.build.name>org.liming.java.util</project.build.name>
@@ -256,5 +255,10 @@
 			<artifactId>junit</artifactId>
 			<version>4.9</version>
 		</dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
 	</dependencies>
 </project>

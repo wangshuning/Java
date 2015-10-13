@@ -1,4 +1,4 @@
-package org.limingnihao.model;
+package org.limingnihao.util.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,6 +10,7 @@ public class WeekBean {
 	private int weekId;
 	private Date startDate;
 	private Date endDate;
+    private String weekName;
 
 	public String toString() {
 		return "WeekBean - weekId=" + weekId + ", startDate=" + DateUtil.format(startDate) + ", endDate" + DateUtil.format(endDate);
@@ -48,4 +49,11 @@ public class WeekBean {
 		this.endDate = endDate;
 	}
 
+    public String getWeekName() {
+        return weekName;
+    }
+
+    public void setWeekName(String weekName) {
+        this.weekName = weekName;
+    }
 }

@@ -1,4 +1,4 @@
-package org.limingnihao.model;
+package org.limingnihao.util.model;
 
 public class FileBean {
 

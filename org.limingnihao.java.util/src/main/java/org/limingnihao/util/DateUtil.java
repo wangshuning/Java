@@ -8,8 +8,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.limingnihao.model.DateBean;
-import org.limingnihao.model.WeekBean;
+import org.limingnihao.util.model.DateBean;
+import org.limingnihao.util.model.WeekBean;
 
 /**
  * Date常用方法
@@ -493,4 +493,49 @@ public class DateUtil {
 		return add(date, Calendar.MILLISECOND, amount);
 	}
 
+    public static List<WeekBean> getCustomWeekList(Date startDate, Integer weekPoint, Date endDate, boolean isEnd)
+    {
+        if (isEnd) {
+            if (weekPoint.intValue() < 7)
+                weekPoint = Integer.valueOf(weekPoint.intValue() + 1);
+            else {
+                weekPoint = Integer.valueOf(1);
+            }
+        }
+        Calendar startCalendar = Calendar.getInstance();
+        startCalendar.setTime(startDate);
+        int dayOfWeek = startCalendar.get(7) - 1;
+        if (dayOfWeek != weekPoint.intValue()) {
+            int value = weekPoint.intValue() - dayOfWeek;
+            if (value < 0) {
+                value = 7 + value;
+            }
+            for (int i = 0; i < value; i++) {
+                startDate = getTomorrow(startDate);
+            }
+        }
+        List list = new ArrayList();
+        Date nowEnd = null;
+        int i = 1;
+        do {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(startDate);
+            calendar.add(5, 6);
+            calendar.set(11, 0);
+            calendar.set(12, 0);
+            calendar.set(13, 0);
+            calendar.set(14, 0);
+            WeekBean bean = new WeekBean();
+            bean.setWeekId(i);
+            bean.setStartDate(startDate);
+            bean.setEndDate(calendar.getTime());
+            bean.setWeekName("[" + format(startDate, "yyyy-MM-dd") + "]" + " - " + "[" + format(calendar.getTime(), "yyyy-MM-dd]"));
+            nowEnd = calendar.getTime();
+            startDate = getTomorrow(nowEnd);
+            list.add(bean);
+            i++;
+        }while (nowEnd.getTime() < endDate.getTime());
+
+        return list;
+    }
 }
