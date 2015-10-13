@@ -84,6 +84,7 @@ public class ExcelUtil {
 				for (int j = 0; j < row.getLastCellNum(); j++) {
 					// 得到Excel工作表指定行的单元格
 					HSSFCell cell = row.getCell(j);
+					//logger.info("~~~~~~[" + i + "," + j + "] - cell=" + cell );
 					Object value = null;
 					if (cell != null) {
 						if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
@@ -92,8 +93,11 @@ public class ExcelUtil {
 						} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 							value = cell.getStringCellValue();
 						}
-						columnList.add(value.toString());
+						columnList.add(value != null ? value.toString() : "");
+					}else{
+						columnList.add("");
 					}
+					//logger.info("~~~~~~[" + i + "," + j + "] - cell=" + cell + ", value=" + value);
 				}
 				//logger.info("i=" + i + "" + Arrays.toString(columnList.toArray()));
 				rowList.add(columnList);
