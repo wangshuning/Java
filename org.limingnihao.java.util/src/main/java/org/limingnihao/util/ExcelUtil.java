@@ -93,7 +93,7 @@ public class ExcelUtil {
 						} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 							value = cell.getStringCellValue();
 						}
-						columnList.add(value != null ? value.toString() : "");
+						columnList.add(value != null ? value.toString().trim() : "");
 					}else{
 						columnList.add("");
 					}
