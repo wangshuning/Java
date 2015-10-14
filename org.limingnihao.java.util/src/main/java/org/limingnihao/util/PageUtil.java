@@ -2,7 +2,7 @@ package org.limingnihao.util;
 
 import java.util.List;
 
-import org.limingnihao.util.model.SortBean;
+import org.limingnihao.model.SortBean;
 
 /**
  * 分页处理

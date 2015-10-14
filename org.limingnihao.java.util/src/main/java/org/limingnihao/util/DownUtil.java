@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-import org.limingnihao.util.model.FileBean;
+import org.limingnihao.model.FileBean;
 
 public class DownUtil {
 

@@ -8,8 +8,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.limingnihao.util.model.DateBean;
-import org.limingnihao.util.model.WeekBean;
+import org.limingnihao.model.DateBean;
+import org.limingnihao.model.WeekBean;
 
 /**
  * Date常用方法
