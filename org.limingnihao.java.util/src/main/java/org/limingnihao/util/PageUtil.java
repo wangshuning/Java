@@ -123,9 +123,9 @@ public class PageUtil {
 	}
 
 	public static int getPageNow(int pageNow, int pageTotal) {
-		if (pageNow > pageTotal) {
-			return pageTotal;
-		}
+//		if (pageNow > pageTotal) {
+//			return pageTotal;
+//		}
 		if (pageNow < 1) {
 			return 1;
 		}
