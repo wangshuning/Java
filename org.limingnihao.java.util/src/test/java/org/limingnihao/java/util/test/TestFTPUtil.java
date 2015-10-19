@@ -2,7 +2,10 @@ package org.limingnihao.java.util.test;
 
 
 import org.junit.Test;
+import org.limingnihao.model.FileBean;
 import org.limingnihao.util.FTPUtil;
+
+import java.util.List;
 
 public class TestFTPUtil {
 
@@ -12,11 +15,13 @@ public class TestFTPUtil {
             FTPUtil ftp = new FTPUtil();
             ftp.login("101.200.3.17", 21, "syn", "syn123456");
             //ftp.uploadFile("/Test", "/Volumes/Software/a.txt");
-            String[] list = ftp.getFileNameList("/ALL");
-            for(String file : list){
-                ftp.getFileNameList(file);
+            List<FileBean> list= ftp.getFileList("/Record/201510");
+            for(FileBean file : list){
+                ftp.downloadFile(file.getFolderPath(), file.getFileName(), "/Volumes/Software/Syn/Record");
             }
         }
+
+
         catch (Exception e){
             e.printStackTrace();
         }

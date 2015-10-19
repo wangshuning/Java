@@ -5,6 +5,13 @@ public class SortBean {
 	private String property;
 	private String direction;
 
+	public SortBean(){}
+
+	public SortBean(String property, String direction) {
+		this.property = property;
+		this.direction = direction;
+	}
+
 	public String getProperty() {
 		return property;
 	}

@@ -42,13 +42,12 @@ public class HTTPUtil {
 	private static final int TIME_OUT_HTTP = 5000;
 
 	public static void main(String args[]) {
-		String httpUrl = "http://127.0.0.1:7080/com.longshine.whb.manager/interface/testFile.do";
-		// String httpUrl = "http://192.168.1.19:8080/com.longshine.met.manager/interface/getCurrentSystemDateTime.do";
-		Map<String, String> params = new HashMap<String, String>();
-		// params.put("talkId", "1");
-		// params.put("userId", "1");
-		String a = sendApacheUploadFile(httpUrl, "d:\\Users\\limingnihao\\Pictures\\RB11021203_8.jpg", params);
-		System.out.println(a);
+
+		Map<String, String> bm = new HashMap<String, String>();
+		bm.put("qrcodeurl", "http://weixin.qq.com/q/h0M5de-luJrBeQsA121g");
+		String b = sendPostHttpRequest("http://weitrade.dhcfcs.com/wbhsslonline/tmpApi/qrcodegetcanum", bm);
+		System.out.println(b);
+
 	}
 
 	/**

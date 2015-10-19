@@ -9,6 +9,7 @@ public class FileBean {
 	private String folderPath;
 	private String fileMd5;
 
+
 	public String toString() {
 		return "[FileBean] - fileName=" + fileName + ", saveName=" + saveName + ", fileType=" + fileType + ", fileSize=" + fileSize + ", folderPath=" + folderPath + ", fileMd5=" + fileMd5;
 	}

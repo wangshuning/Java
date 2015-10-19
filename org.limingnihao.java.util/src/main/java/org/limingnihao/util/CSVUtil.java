@@ -1,24 +1,66 @@
 package org.limingnihao.util;
 
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
- * Created by lishiming on 15/9/26.
+ * csv的操作
  */
 public class CSVUtil {
 
-    private static String SIMPLE_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss:SSS";
+    private static String SIMPLE_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     public static void main(String args[]) {
-        // DateBean bean = DateUtil.getCurrentDateBean();
-        // String str = XmlUtil.objectToXml(bean);
-        // System.out.println(str);
-        // DateBean b = XmlUtil.xmlToObject(DateBean.class, str);
-        // System.out.println(b.getMonth());
+    }
+
+    /**
+     * 保存成文件
+     * @param dataList - 数据数组
+     * @param dirPath - 保存文件夹
+     * @param fileName - 保存文件名
+     * @return
+     */
+    public static long saveListToCsvFile(Object[] dataList, String dirPath, String fileName) {
+        String dateString = CSVUtil.listToCSV(dataList);
+        //路径
+        File dir = new File(dirPath);
+        boolean mkResult = true;
+        if (!dir.exists()) {
+            mkResult = dir.mkdirs();
+        } else if (!dir.isDirectory()) {
+            dir.delete();
+            mkResult = dir.mkdirs();
+        }
+
+        //文件
+        File file = new File(dirPath + File.separator + fileName);
+
+        FileOutputStream out=null;
+        OutputStreamWriter osw=null;
+        BufferedWriter bw=null;
+        try {
+            file.createNewFile();
+            out = new FileOutputStream(file);
+            byte[] dates = dateString.getBytes("UTF-8");
+            out.write(dates);
+            out.flush();
+            return file.length();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }finally {
+            if (out != null) {
+                try {
+                    out.close();
+                    out = null;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public static String listToCSV(Object[] list){

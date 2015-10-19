@@ -24,17 +24,62 @@ public class DateUtil {
 	public static String defaultTimeFormatString = "HH:mm:ss";
 
 	public static void main(String args[]) {
-		Calendar start = Calendar.getInstance();
-		start.set(Calendar.YEAR, 1970);
-		start.set(Calendar.MONTH, 0);
-		start.set(Calendar.DAY_OF_MONTH, 1);
-		start.set(Calendar.HOUR_OF_DAY, 0);
-		start.set(Calendar.MINUTE, 0);
-		start.set(Calendar.SECOND, 0);
-		start.set(Calendar.MILLISECOND, 0);
-		start.add(Calendar.SECOND, 1409635994);
+		System.out.println("" + format(getMonthStart(parse("2015-10-5"))) + ", " + getMonthNumber(parse("2015-10-5")));
+		System.out.println("" + format(getMonthStart(parse("2015-10-30"))) + ", " + getMonthNumber(parse("2015-10-30")));
+		System.out.println("" + format(getMonthStart(parse("2015-11-10"))) + ", " + getMonthNumber(parse("2015-11-10")));
+		System.out.println("" + format(getMonthStart(parse("2015-12-10"))) + ", " + getMonthNumber(parse("2015-12-10")));
 
-		System.out.println("" + format(start.getTime()));
+	}
+
+
+	/**
+	 * 在指定时间上，增加一个时间戳
+	 *
+	 * @param date
+	 * @param calendarField
+	 * @param amount
+	 * @return
+	 */
+	private static Date add(Date date, int calendarField, int amount) {
+		if (date == null) {
+			throw new IllegalArgumentException("The date must not be null");
+		}
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(calendarField, amount);
+		return c.getTime();
+	}
+
+	public static Date addYears(Date date, int amount) {
+		return add(date, Calendar.YEAR, amount);
+	}
+
+	public static Date addMonths(Date date, int amount) {
+		return add(date, Calendar.MONTH, amount);
+	}
+
+	public static Date addWeeks(Date date, int amount) {
+		return add(date, Calendar.WEEK_OF_YEAR, amount);
+	}
+
+	public static Date addDays(Date date, int amount) {
+		return add(date, Calendar.DAY_OF_MONTH, amount);
+	}
+
+	public static Date addHours(Date date, int amount) {
+		return add(date, Calendar.HOUR_OF_DAY, amount);
+	}
+
+	public static Date addMinutes(Date date, int amount) {
+		return add(date, Calendar.MINUTE, amount);
+	}
+
+	public static Date addSeconds(Date date, int amount) {
+		return add(date, Calendar.SECOND, amount);
+	}
+
+	public static Date addMilliseconds(Date date, int amount) {
+		return add(date, Calendar.MILLISECOND, amount);
 	}
 
 	public static Date getDefaultStartDate() {
@@ -132,7 +177,7 @@ public class DateUtil {
 	/**
 	 * 将字符串转换为时间类型，按照yyyy-MM-dd 或yyyy-MM-dd HH:mm:ss格式
 	 * 
-	 * @param String
+	 * @param source
 	 * @return Date
 	 */
 	public static Date parse(String source) {
@@ -156,7 +201,7 @@ public class DateUtil {
 	/**
 	 * 将字符串转换为时间类型，按照指定的输入格式
 	 * 
-	 * @param String
+	 * @param source
 	 * @return Date
 	 */
 	public static Date parse(String source, String formatString) {
@@ -176,7 +221,7 @@ public class DateUtil {
 	/**
 	 * 将时间转换为格式为 yyyy-MM-dd HH:mm:ss 的字符串
 	 * 
-	 * @param Date
+	 * @param timestamp
 	 * @return String
 	 */
 	public static String format(Timestamp timestamp) {
@@ -189,7 +234,8 @@ public class DateUtil {
 	/**
 	 * 将时间转换为格式为 yyyy-MM-dd HH:mm:ss 的字符串
 	 * 
-	 * @param Date
+	 * @param timestamp
+	 * @param formatString
 	 * @return String
 	 */
 	public static String format(Timestamp timestamp, String formatString) {
@@ -202,7 +248,7 @@ public class DateUtil {
 	/**
 	 * 将时间转换为格式为 yyyy-MM-dd HH:mm:ss 的字符串
 	 * 
-	 * @param Date
+	 * @param date
 	 * @return String
 	 */
 	public static String format(Date date) {
@@ -212,7 +258,7 @@ public class DateUtil {
 	/**
 	 * 将时间转换为字符串，按照指定的格式
 	 * 
-	 * @param Date
+	 * @param date
 	 * @param formatString
 	 * @return String
 	 */
@@ -271,7 +317,7 @@ public class DateUtil {
 	/**
 	 * 获取本周对象 - 当天
 	 * 
-	 * @param Date
+	 * @param date
 	 * @return WeekBean
 	 */
 	public static WeekBean getWeekBean(Date date) {
@@ -280,12 +326,12 @@ public class DateUtil {
 		Calendar start = Calendar.getInstance();
 		start.setFirstDayOfWeek(Calendar.MONDAY);
 		start.setTime(calendar.getTime());
-		start.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		start.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);//设置为周一
 
 		Calendar end = Calendar.getInstance();
 		end.setFirstDayOfWeek(Calendar.MONDAY);
 		end.setTime(start.getTime());
-		end.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+		end.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);//设置为周日
 		WeekBean weekBean = new WeekBean();
 		weekBean.setStartDate(start.getTime());
 		weekBean.setEndDate(end.getTime());
@@ -301,7 +347,7 @@ public class DateUtil {
 	/**
 	 * 获取周列表 - 当月
 	 * 
-	 * @param Date
+	 * @param date
 	 * @return List<WeekBean>
 	 */
 	public static List<WeekBean> getWeekList(Date date) {
@@ -343,7 +389,7 @@ public class DateUtil {
 	/**
 	 * 获取本周日期列表
 	 * 
-	 * @param Date
+	 * @param date
 	 * @return List<DateBean>
 	 */
 	public static List<DateBean> getDateListBySame(Date date) {
@@ -364,7 +410,7 @@ public class DateUtil {
 	/**
 	 * 获取上周日期列表
 	 * 
-	 * @param dateBean
+	 * @param date
 	 * @return List<DateBean>
 	 */
 	public static List<DateBean> getDateListByPrevious(Date date) {
@@ -377,7 +423,7 @@ public class DateUtil {
 	/**
 	 * 获取下周日期列表
 	 * 
-	 * @param dateBean
+	 * @param date
 	 * @return List<DateBean>
 	 */
 	public static List<DateBean> getDateListByNext(Date date) {
@@ -390,7 +436,7 @@ public class DateUtil {
 	/**
 	 * 获取时间Bean
 	 * 
-	 * @param Date
+	 * @param date
 	 * @return DateBean
 	 */
 	public static DateBean getDateBean(Date date) {
@@ -443,58 +489,81 @@ public class DateUtil {
 		return getDateBean(new Date());
 	}
 
+
 	/**
-	 * 在指定时间上，增加一个时间戳
-	 * 
-	 * @param date
-	 * @param calendarField
-	 * @param amount
+	 * 获取某月的总天数
+	 * @param year
+	 * @param month
 	 * @return
 	 */
-	private static Date add(Date date, int calendarField, int amount) {
-		if (date == null) {
-			throw new IllegalArgumentException("The date must not be null");
-		}
-		Calendar c = Calendar.getInstance();
-		c.setTime(date);
-		c.add(calendarField, amount);
-		return c.getTime();
+	public static int getMonthCount(int year, int month){
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.MONTH, month - 1);//Java月份才0开始算
+		int dateOfMonth = cal.getActualMaximum(Calendar.DATE);
+		return dateOfMonth;
 	}
 
-	public static Date addYears(Date date, int amount) {
-		return add(date, Calendar.YEAR, amount);
+	/**
+	 * 获取当前时间,所在周的第一天. 周一为第一天
+	 * @param now
+	 * @return
+	 */
+	public static Date getWeekStart(Date now){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+		Calendar start = Calendar.getInstance();
+		start.setFirstDayOfWeek(Calendar.MONDAY);
+		start.setTime(calendar.getTime());
+		start.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);//设置为周一
+		return new Date(start.getTimeInMillis());
 	}
 
-	public static Date addMonths(Date date, int amount) {
-		return add(date, Calendar.MONTH, amount);
+
+	/**
+	 * 获取当前时间, 是本周第几天
+	 * @param now
+	 * @return
+	 */
+	public static int getWeekNumber(Date now){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+
+		Calendar start = Calendar.getInstance();
+		start.setFirstDayOfWeek(Calendar.MONDAY);
+		start.setTime(calendar.getTime());
+		start.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);//设置为周一
+		int number = calendar.get(Calendar.DAY_OF_WEEK) - start.get(Calendar.DAY_OF_WEEK) + 1;
+		number = number == 0 ? 7 : number;
+		return number;
 	}
 
-	public static Date addWeeks(Date date, int amount) {
-		return add(date, Calendar.WEEK_OF_YEAR, amount);
+	/**
+	 * 获取当前时间,所在月的第一天.
+	 * @param now
+	 * @return
+	 */
+	public static Date getMonthStart(Date now){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+		Calendar start = Calendar.getInstance();
+		start.setTime(calendar.getTime());
+		start.set(Calendar.DAY_OF_MONTH, 1);
+		return new Date(start.getTimeInMillis());
 	}
 
-	public static Date addDays(Date date, int amount) {
-		return add(date, Calendar.DAY_OF_MONTH, amount);
-	}
 
-	public static Date addHours(Date date, int amount) {
-		return add(date, Calendar.HOUR_OF_DAY, amount);
+	/**
+	 * 获取当前时间, 是本月第几天
+	 * @param now
+	 * @return
+	 */
+	public static int getMonthNumber(Date now){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+		return calendar.get(Calendar.DAY_OF_MONTH);
 	}
-
-	public static Date addMinutes(Date date, int amount) {
-		return add(date, Calendar.MINUTE, amount);
-	}
-
-	public static Date addSeconds(Date date, int amount) {
-		return add(date, Calendar.SECOND, amount);
-	}
-
-	public static Date addMilliseconds(Date date, int amount) {
-		return add(date, Calendar.MILLISECOND, amount);
-	}
-
-    public static List<WeekBean> getCustomWeekList(Date startDate, Integer weekPoint, Date endDate, boolean isEnd)
-    {
+	public static List<WeekBean> getCustomWeekList(Date startDate, Integer weekPoint, Date endDate, boolean isEnd){
         if (isEnd) {
             if (weekPoint.intValue() < 7)
                 weekPoint = Integer.valueOf(weekPoint.intValue() + 1);
@@ -538,4 +607,5 @@ public class DateUtil {
 
         return list;
     }
+
 }

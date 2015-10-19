@@ -3,6 +3,7 @@ package org.limingnihao.util;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
+import org.limingnihao.model.FileBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,40 +76,127 @@ public class FTPUtil {
         logger.info("uploadFile - ftpPath=" + ftpPath + ", filePath=" + filePath + ", isConnected=" + this.ftp.isConnected() + ", isAvailable=" + this.ftp.isAvailable());
 
         boolean success = false;
+        InputStream is = null;
         try {
             boolean changeDir = this.ftp.changeWorkingDirectory(ftpPath);
             logger.info("uploadFile - ftpPath=" + ftpPath + ", changeDir=" + changeDir);
             File file = new File(filePath);
             logger.info("uploadFile - filePath=" + filePath + ", exists=" + file.exists() + ", canRead=" + file.canRead());
-            InputStream is = new FileInputStream(file);
+            is = new FileInputStream(file);
             boolean storeFile = this.ftp.storeFile(file.getName(), is);
             logger.info("uploadFile - storeFile=" + storeFile);
-            is.close();
             success = true;
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if(is != null){
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return success;
     }
 
+    /**
+     * 下载文件
+     * @param ftpPath 远程服务器上的路径
+     * @param fileName 文件名称
+     * @param localPath 本地保存路径
+     * @return
+     */
+    public boolean downloadFile(String ftpPath, String fileName, String localPath){
+        logger.info("downloadFile - start - ftpPath=" + ftpPath + ", fileName=" + fileName + ", localPath=" + localPath + ", isConnected=" + this.ftp.isConnected() + ", isAvailable=" + this.ftp.isAvailable());
+        boolean success = false;
+        String localFile = localPath + File.separator + fileName;
+        OutputStream os = null;
+        try {
+            File local = new File(localPath);
+            if(!local.exists()){
+                local.mkdirs();
+            }
+            boolean changeDir = this.ftp.changeWorkingDirectory(ftpPath);
+            //logger.info("downloadFile - 1 - ftpPath=" + ftpPath + ", changeDir=" + changeDir);
+            os = new FileOutputStream(localFile);
+            boolean downFile = this.ftp.retrieveFile(fileName, os);
+            //logger.info("downloadFile - 2 - localFile=" + localFile);
+            os.close();
+            success = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(os != null){
+                try {
+                    os.flush();
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        logger.info("downloadFile - over - ftpPath=" + ftpPath + ", fileName=" + fileName + ", localPath=" + localPath + ", success=" + success);
+        return success;
+    }
 
     /**
      * 获取文件列表
      * @param ftpPath
      * @return
      */
-    public String[] getFileNameList(String ftpPath) {
-        logger.info("getFileNameList - ftpPath=" + ftpPath + ", isConnected=" + this.ftp.isConnected() + ", isAvailable=" + this.ftp.isAvailable());
+    public List<FileBean> getFileList(String ftpPath) {
+        logger.info("getFileList - ftpPath=" + ftpPath + ", isConnected=" + this.ftp.isConnected() + ", isAvailable=" + this.ftp.isAvailable());
         if(!this.ftp.isConnected()){
             return null;
         }
+        List<FileBean> list = new ArrayList<FileBean>();
         try{
-            String[] names = this.ftp.listNames(ftpPath);
-            logger.info("getFileNameList - ftpPath=" + ftpPath + ", " + Arrays.toString(names));
-            return names;
+            FTPFile[] files = this.ftp.listFiles(ftpPath);
+            for(FTPFile f: files){
+                FileBean bean = new FileBean();
+                bean.setFileSize(f.getSize());
+                bean.setFileName(f.getName());
+                bean.setSaveName(f.getName());
+                bean.setFolderPath(ftpPath);
+                list.add(bean);
+                logger.info("getFileList - ftpPath=" + ftpPath + ", " +bean);
+            }
         } catch (Exception e){
             e.printStackTrace();
         }
+        return list;
+    }
+
+    /**
+     * 获取文件信息
+     * @param ftpPath
+     * @param fileName
+     * @return
+     */
+    public FileBean getFile(String ftpPath, String fileName){
+        if(!this.ftp.isConnected()){
+            return null;
+        }
+        List<FileBean> list = new ArrayList<FileBean>();
+        try{
+            FTPFile[] files = this.ftp.listFiles(ftpPath);
+            for(FTPFile f: files){
+                if(f.getName().equals(fileName)){
+                    FileBean bean = new FileBean();
+                    bean.setFileSize(f.getSize());
+                    bean.setFileName(f.getName());
+                    bean.setSaveName(f.getName());
+                    bean.setFolderPath(ftpPath);
+                    logger.info("getFile - ftpPath=" + ftpPath + ", " +bean);
+                    return bean;
+                }
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        logger.info("getFile - ftpPath=" + ftpPath + ", " +null);
         return null;
     }
+
 }
