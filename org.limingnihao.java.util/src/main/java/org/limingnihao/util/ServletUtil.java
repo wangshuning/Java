@@ -50,7 +50,7 @@ public class ServletUtil {
 	 * @return
 	 */
 	public static String getServiceUri(HttpServletRequest request) {
-		return request.getScheme() + "://" + request.getServerName() + "/" + request.getContextPath();
+		return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/" + request.getContextPath();
 	}
 
 }
