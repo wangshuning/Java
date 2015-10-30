@@ -73,18 +73,18 @@ public class FTPUtil {
      * @return
      */
     public boolean uploadFile(String ftpPath, String filePath) {
-        logger.info("uploadFile - ftpPath=" + ftpPath + ", filePath=" + filePath + ", isConnected=" + this.ftp.isConnected() + ", isAvailable=" + this.ftp.isAvailable());
+        logger.info("uploadFile - start - ftpPath=" + ftpPath + ", filePath=" + filePath + ", isConnected=" + this.ftp.isConnected() + ", isAvailable=" + this.ftp.isAvailable());
 
         boolean success = false;
         InputStream is = null;
         try {
             boolean changeDir = this.ftp.changeWorkingDirectory(ftpPath);
-            logger.info("uploadFile - ftpPath=" + ftpPath + ", changeDir=" + changeDir);
+            logger.info("uploadFile - ftpPath=" + ftpPath  + ", filePath=" + filePath + ", changeDir=" + changeDir);
             File file = new File(filePath);
-            logger.info("uploadFile - filePath=" + filePath + ", exists=" + file.exists() + ", canRead=" + file.canRead());
+            //logger.info("uploadFile - filePath=" + filePath + ", exists=" + file.exists() + ", canRead=" + file.canRead());
             is = new FileInputStream(file);
-            boolean storeFile = this.ftp.storeFile(file.getName(), is);
-            logger.info("uploadFile - storeFile=" + storeFile);
+            boolean result = this.ftp.storeFile(file.getName(), is);
+            logger.info("uploadFile - over - ftpPath=" + ftpPath + ", filePath=" + filePath + ", result=" + result);
             success = true;
         } catch (IOException e) {
             e.printStackTrace();

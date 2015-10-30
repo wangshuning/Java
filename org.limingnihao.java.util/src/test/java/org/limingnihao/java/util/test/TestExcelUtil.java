@@ -7,7 +7,7 @@ public class TestExcelUtil {
 
 	@Test
 	public void main() {
-		ExcelUtil.importExcel("/Users/lishiming/Downloads/boss.xls", 0);
+		ExcelUtil.import2003("/Users/lishiming/Downloads/boss.xls", 0);
 	}
 
 }
