@@ -108,7 +108,7 @@ public class ExcelUtil {
 						}
 						//logger.info("~~~~~~[" + i + "," + j + "] - cell=" + cell + ", value=" + value);
 					}
-					//logger.info("i=" + i + "" + Arrays.toString(columnList.toArray()));
+//					logger.info("i=" + i + "" + Arrays.toString(columnList.toArray()));
 					rowList.add(columnList);
 				}
 			}

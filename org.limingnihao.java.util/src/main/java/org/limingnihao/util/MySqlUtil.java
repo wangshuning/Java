@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,7 +18,7 @@ public class MySqlUtil {
     private Connection connection = null;
 
     public Connection getConnection() {
-        return connection;
+        return this.connection;
     }
 
     public void setConnection(Connection connection) {
@@ -27,17 +28,22 @@ public class MySqlUtil {
     public MySqlUtil(String url, String username, String password) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(url, username, password);
+            this.connection = DriverManager.getConnection(url, username, password);
             logger.info("MySqlUtil - url=" + url + ", username=" + username + ", password=" + password);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * 执行delete或update
+     * @param sql
+     * @return
+     */
     public boolean execute(String sql){
         PreparedStatement pst = null;
         try {
-            pst = connection.prepareStatement(sql);
+            pst = this.connection.prepareStatement(sql);
             return pst.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,10 +60,16 @@ public class MySqlUtil {
         return false;
     }
 
+    /**
+     * 存储过程
+     * @param sql
+     * @param parameter
+     * @return
+     */
     public boolean procedure(String sql, HashMap<String, String> parameter){
         CallableStatement cst = null;
         try {
-            cst = connection.prepareCall(sql);
+            cst = this.connection.prepareCall(sql);
             Iterator iter = parameter.entrySet().iterator();
             while (iter.hasNext()) {
                 Map.Entry entry = (Map.Entry) iter.next();
@@ -79,6 +91,28 @@ public class MySqlUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * 查询
+     * @param sql
+     * @param pras
+     * @return
+     */
+    public ResultSet search(String sql, List<Object> pras){
+        try {
+            PreparedStatement ps = this.connection.prepareStatement(sql);
+            if(pras != null){
+                for(int i=0;i<pras.size(); i++){
+                    ps.setObject(i+1, pras.get(i));
+                }
+            }
+            return ps.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.info("search - error - sql=" + sql);
+        }
+        return null;
     }
 
     public void close() {
