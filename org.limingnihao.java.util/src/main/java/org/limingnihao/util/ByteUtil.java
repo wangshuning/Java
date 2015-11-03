@@ -1,5 +1,7 @@
 package org.limingnihao.util;
 
+import java.io.UnsupportedEncodingException;
+
 public class ByteUtil {
 
 	/**
@@ -66,4 +68,16 @@ public class ByteUtil {
 				| (((long) bb[2] & 0xff) << 16) | (((long) bb[1] & 0xff) << 8) | (((long) bb[0] & 0xff) << 0));
 	}
 
+    public static String byteToString(byte[] bb) {
+        String s = null;
+        if (bb != null) {
+            try {
+                s = new String(bb, "UTF-8");
+                return s;
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 }

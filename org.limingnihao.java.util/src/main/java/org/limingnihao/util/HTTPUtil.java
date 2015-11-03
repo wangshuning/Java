@@ -43,11 +43,12 @@ public class HTTPUtil {
 
 	public static void main(String args[]) {
 
-		Map<String, String> bm = new HashMap<String, String>();
-		bm.put("qrcodeurl", "http://weixin.qq.com/q/h0M5de-luJrBeQsA121g");
-		String b = sendPostHttpRequest("http://weitrade.dhcfcs.com/wbhsslonline/tmpApi/qrcodegetcanum", bm);
-		System.out.println(b);
+//		Map<String, String> bm = new HashMap<String, String>();
+//		bm.put("qrcodeurl", "http://weixin.qq.com/q/h0M5de-luJrBeQsA121g");
+//		String b = sendPostHttpRequest("http://weitrade.dhcfcs.com/wbhsslonline/tmpApi/qrcodegetcanum", bm);
+//		System.out.println(b);
 
+        sendPostHttpRequestWithBasicAuth("http://localhost:9080/interface/region/getListAll.do", null, "user1", "123456");
 	}
 
 	/**
@@ -171,6 +172,51 @@ public class HTTPUtil {
 		return result;
 	}
 
+    /**
+     * 使用jdk的http的post请求
+     */
+    public static String sendPostHttpRequestWithBasicAuth(String endpoint, Map<String, String> params, String username, String password) {
+        String authorization = "Basic " + Base64Util.encode(username + ":" + password);
+        String result = null;
+        try {
+            HttpURLConnection httpUrlConnection = (HttpURLConnection) new URL(endpoint).openConnection();
+            httpUrlConnection.setDoOutput(true);
+            httpUrlConnection.setDoInput(true);
+            httpUrlConnection.setUseCaches(false);
+            httpUrlConnection.setConnectTimeout(5000);
+            httpUrlConnection.setReadTimeout(5000);
+            httpUrlConnection.setRequestMethod("POST");
+            httpUrlConnection.setRequestProperty("Authorization", authorization);
+
+            String paramString = "";
+            if (params != null && params.size() > 0) {
+                Iterator<String> it = params.keySet().iterator();
+                while (it.hasNext()) {
+                    String key = (String) it.next();
+                    String value = params.get(key);
+                    paramString += (key + "=" + value + "&");
+                }
+                paramString = paramString.substring(0, paramString.length() - 1);
+            }
+            DataOutputStream writer = new DataOutputStream(httpUrlConnection.getOutputStream());
+            writer.write(paramString.getBytes("UTF-8"));
+            writer.flush();
+            writer.close();
+            BufferedReader in = new BufferedReader(new InputStreamReader((InputStream) httpUrlConnection.getInputStream(), DEFAULT_ENCODING));
+            String line = null;
+            StringBuilder sb = new StringBuilder();
+            while ((line = in.readLine()) != null) {
+                sb.append(line);
+            }
+            in.close();
+            httpUrlConnection.disconnect();
+            result = sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 	/**
 	 * 使用apache的httpapi请求post
 	 */
@@ -241,4 +287,5 @@ public class HTTPUtil {
 		String serverAddress = request.getScheme() + "://" + request.getServerName();
 		return serverAddress;
 	}
+
 }
