@@ -61,6 +61,28 @@ public class MySqlUtil {
     }
 
     /**
+     * 查询
+     * @param sql
+     * @param pras
+     * @return
+     */
+    public ResultSet executeQuery(String sql, List<Object> pras){
+        try {
+            PreparedStatement ps = this.connection.prepareStatement(sql);
+            if(pras != null){
+                for(int i=0;i<pras.size(); i++){
+                    ps.setObject(i+1, pras.get(i));
+                }
+            }
+            return ps.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.info("executeQuery - error - sql=" + sql);
+        }
+        return null;
+    }
+
+    /**
      * 存储过程
      * @param sql
      * @param parameter
@@ -91,28 +113,6 @@ public class MySqlUtil {
             }
         }
         return false;
-    }
-
-    /**
-     * 查询
-     * @param sql
-     * @param pras
-     * @return
-     */
-    public ResultSet search(String sql, List<Object> pras){
-        try {
-            PreparedStatement ps = this.connection.prepareStatement(sql);
-            if(pras != null){
-                for(int i=0;i<pras.size(); i++){
-                    ps.setObject(i+1, pras.get(i));
-                }
-            }
-            return ps.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            logger.info("search - error - sql=" + sql);
-        }
-        return null;
     }
 
     public void close() {

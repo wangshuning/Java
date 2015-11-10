@@ -24,6 +24,7 @@ public class CSVUtil {
      * @return
      */
     public static long saveListToCsvFile(Object[] dataList, String dirPath, String fileName) {
+
         String dateString = CSVUtil.listToCSV(dataList);
         //路径
         File dir = new File(dirPath);
@@ -44,6 +45,10 @@ public class CSVUtil {
         try {
             file.createNewFile();
             out = new FileOutputStream(file);
+            int pageSize = 100000;
+            for(int i=0; i<dataList.length; i+=100000){
+
+            }
             byte[] dates = dateString.getBytes("UTF-8");
             out.write(dates);
             out.flush();

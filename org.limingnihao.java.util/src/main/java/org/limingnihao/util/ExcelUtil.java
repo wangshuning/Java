@@ -85,7 +85,7 @@ public class ExcelUtil {
 				int rowNumLast = sheet.getLastRowNum();
 				logger.info("import2003 - 2.sheet=" + k + ", rowNumLast=" + rowNumLast);
 				// i循环行
-				for (int i = 1; i < rowNumLast; i++) {
+				for (int i = 0; i < rowNumLast; i++) {
 					ArrayList<String> columnList = new ArrayList<String>();
 					// 得到Excel工作表的行
 					HSSFRow row = sheet.getRow(i);
@@ -139,7 +139,7 @@ public class ExcelUtil {
 				int rowNumLast = sheet.getLastRowNum();
 				logger.info("import2007 - filePath=" + filePath + ", sheet=" + k + ", rowNumLast=" + rowNumLast);
 				// i循环行
-				for (int i = 1; i < rowNumLast; i++) {
+				for (int i = 0; i < rowNumLast; i++) {
 					ArrayList<String> columnList = new ArrayList<String>();
 					// 得到Excel工作表的行
 					XSSFRow row = sheet.getRow(i);
@@ -160,7 +160,7 @@ public class ExcelUtil {
 						}else{
 							columnList.add("");
 						}
-						//logger.info("~~~~~~[" + i + "," + j + "] - cell=" + cell + ", value=" + value);
+						//logger.info("~~~~~~[" + i + "," + j + "] - " + cell.getCellType() + ", cell=" + cell + ", value=" + value);
 					}
 					//logger.info("i=" + i + "" + Arrays.toString(columnList.toArray()));
 					rowList.add(columnList);
