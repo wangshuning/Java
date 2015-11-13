@@ -13,7 +13,7 @@ public class Base64Util {
 
 	public static void main(String args[]) {
 		// String a = "+++ODA4MDwvcHJvamVjdFBvcnQ+PHByb2plY3ROYW1lPjwvcHJvamVjdE5hbWU+PHVybFZhbHVlPjo4MDgwL3VzZXIvdXNiS2V5VmFsaWRhdGUuZG88L3VybFZhbHVlPjwvVXNiS2V5QmVhbj4=";
-		String a = "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48VXNiS2V5QmVhbj48dXNlcklkPjExPC91c2VySWQ+PHVzZXJuYW1lPmxpc2hpbWluZzwvdXNlcm5hbWU+PG5pY2tOYW1lPuadjuS4luaYjjwvbmlja05hbWU+PHBhc3N3b3JkPjEyMzQ1NjwvcGFzc3dvcmQ+PGtleVZhbHVlPmRmNTc5NzQxLTI0ZjctNDZiYS1hMjJmLTQ4MmRkNTM1YTAzNTwva2V5VmFsdWU+PGlwQWRkcmVzcz4xMTYuMjEzLjEzMi42MDwvaXBBZGRyZXNzPjxwcm9qZWN0UG9ydD44MDgwPC9wcm9qZWN0UG9ydD48cHJvamVjdE5hbWU+PC9wcm9qZWN0TmFtZT48dXJsVmFsdWU+OjgwODAvdXNlci91c2JLZXlWYWxpZGF0ZS5kbzwvdXJsVmFsdWU+PC9Vc2JLZXlCZWFuPg==";
+		String a = "ZGhjYzoxMjM0NTI2Mg==";
 		System.out.println(decoder(a));
 	}
 

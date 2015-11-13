@@ -45,7 +45,7 @@ public class AesUtil {
 			byte[] result = encrypt(password.getBytes(CHARACTER_SET), code.getBytes(CHARACTER_SET));
 			return toHex(result);
 		} catch (Exception e) {
-			// e.printStackTrace();
+			 e.printStackTrace();
 		}
 		throw new AesErrorException();
 	}
@@ -63,7 +63,7 @@ public class AesUtil {
 			byte[] result = decrypt(password.getBytes(), enc);
 			return new String(result);
 		} catch (Exception e) {
-			// e.printStackTrace();
+			 e.printStackTrace();
 		}
 		throw new AesErrorException();
 	}

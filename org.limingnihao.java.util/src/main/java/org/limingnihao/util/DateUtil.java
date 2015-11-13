@@ -28,8 +28,8 @@ public class DateUtil {
 		System.out.println("" + format(getMonthStart(parse("2015-10-30"))) + ", " + getMonthNumber(parse("2015-10-30")));
 		System.out.println("" + format(getMonthStart(parse("2015-11-10"))) + ", " + getMonthNumber(parse("2015-11-10")));
 		System.out.println("" + format(getMonthStart(parse("2015-12-10"))) + ", " + getMonthNumber(parse("2015-12-10")));
-
-	}
+        System.out.println(getMonthNumber(new Date()));
+    }
 
 
 	/**
