@@ -64,13 +64,13 @@ public class ExcelUtil {
 
 	
 	public static ArrayList<ArrayList<String>> import2003(String filePath, int sheetIndex) {
-		logger.info("import2003 - filePath=" + filePath);
+		//logger.info("import2003 - filePath=" + filePath);
 		File file = new File(filePath);
 		if (!file.exists()) {
 			logger.info("import2003 - 文件不存在");
 			return null;
 		}
-		logger.info("import2003 - 1.文件存在 - filePath=" + filePath);
+		//logger.info("import2003 - 1.文件存在 - filePath=" + filePath);
 		ArrayList<ArrayList<String>> rowList = new ArrayList<ArrayList<String>>();
 		try {
 			POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(filePath));
@@ -83,7 +83,10 @@ public class ExcelUtil {
 				// 得到Excel工作表对象
 				HSSFSheet sheet = workbook.getSheetAt(k);
 				int rowNumLast = sheet.getLastRowNum();
-				logger.info("import2003 - 2.sheet=" + k + ", rowNumLast=" + rowNumLast);
+				if(rowNumLast <=0){
+					continue;
+				}
+				//logger.info("import2003 - 2.sheet=" + k + ", rowNumLast=" + rowNumLast);
 				// i循环行
 				for (int i = 0; i < rowNumLast; i++) {
 					ArrayList<String> columnList = new ArrayList<String>();
@@ -113,6 +116,7 @@ public class ExcelUtil {
 				}
 			}
 		} catch (Exception e) {
+			logger.info("import2003 - filePath=" + filePath + ", " + e);
 			e.printStackTrace();
 		}
 		return rowList;
@@ -137,9 +141,12 @@ public class ExcelUtil {
 			for(int k=0; k<sheetIndex; k++){
 				XSSFSheet sheet = workbook.getSheetAt(k);
 				int rowNumLast = sheet.getLastRowNum();
-				logger.info("import2007 - filePath=" + filePath + ", sheet=" + k + ", rowNumLast=" + rowNumLast);
+				logger.info("import2007 - filePath=" + filePath + ", numberOfSheets=" + max + ", sheet=" + k + ", rowNumLast=" + rowNumLast);
+				if(rowNumLast <=0){
+					continue;
+				}
 				// i循环行
-				for (int i = 0; i < rowNumLast; i++) {
+				for (int i = 0; i <= rowNumLast; i++) {
 					ArrayList<String> columnList = new ArrayList<String>();
 					// 得到Excel工作表的行
 					XSSFRow row = sheet.getRow(i);
