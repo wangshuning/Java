@@ -143,5 +143,6 @@ public class StringUtil {
 
 	public static void main(String[] args) {
 		System.out.println(unicodeConvert("\\u627F\\u5FB7"));
-	}
+        System.out.println(decode("%E3%80%90%E7%9F%AD%E4%BF%A1%E9%80%9A%E3%80%91%E6%82%A8%E7%9A%84%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%9A888888"));
+    }
 }

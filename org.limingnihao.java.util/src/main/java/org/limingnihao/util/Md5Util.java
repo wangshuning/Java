@@ -36,7 +36,7 @@ public class Md5Util {
 //			String md6 = getMD5(new FileInputStream("G:/TDDOWNLOAD/[电影天堂-www.dy2018.net].边境风云.720p.HD国语中字.rmvb"));
 //			System.out.println("" + md6);
 
-        String md7 = getMD5("123123", "DHCFCS");
+        String md7 = getMD5("123456", "DHCFCS");
         System.out.println(md7);
 //		}
 //        catch (FileNotFoundException e) {
