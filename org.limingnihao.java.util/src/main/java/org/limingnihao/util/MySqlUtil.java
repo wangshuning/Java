@@ -36,7 +36,7 @@ public class MySqlUtil {
     }
 
     /**
-     * 执行delete或update
+     * 执行delete
      * @param sql
      * @return
      */
@@ -44,7 +44,7 @@ public class MySqlUtil {
         PreparedStatement pst = null;
         try {
             pst = this.connection.prepareStatement(sql);
-            return pst.execute(sql);
+            return pst.execute();
         } catch (SQLException e) {
             e.printStackTrace();
             logger.info("execute - error - sql=" + sql);
@@ -60,6 +60,37 @@ public class MySqlUtil {
         return false;
     }
 
+
+    /**
+     * 执行insert,update
+     * @param sql
+     * @return
+     */
+    public int executeUpdate(String sql, List<Object> pras){
+        PreparedStatement pst = null;
+        try {
+            pst = this.connection.prepareStatement(sql);
+            if(pras != null){
+                for(int i=0;i<pras.size(); i++){
+                    pst.setObject(i+1, pras.get(i));
+                }
+            }
+            return pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.info("execute - error - sql=" + sql);
+        } finally {
+            if(pst !=null ){
+                try {
+                    pst.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return 0;
+    }
+
     /**
      * 查询
      * @param sql
@@ -67,18 +98,28 @@ public class MySqlUtil {
      * @return
      */
     public ResultSet executeQuery(String sql, List<Object> pras){
+        PreparedStatement pst = null;
         try {
-            PreparedStatement ps = this.connection.prepareStatement(sql);
+            pst = this.connection.prepareStatement(sql);
             if(pras != null){
                 for(int i=0;i<pras.size(); i++){
-                    ps.setObject(i+1, pras.get(i));
+                    pst.setObject(i+1, pras.get(i));
                 }
             }
-            return ps.executeQuery();
+            return pst.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
             logger.info("executeQuery - error - sql=" + sql);
         }
+//        finally {
+//            if(pst !=null ){
+//                try {
+//                    pst.close();
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
         return null;
     }
 
