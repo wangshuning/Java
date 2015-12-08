@@ -62,6 +62,16 @@ public class ExcelUtil {
 		outputStream.close();
 	}
 
+	public static ArrayList<ArrayList<String>> importExcel(String filePath, int sheetIndex){
+		String type = FileUtil.getFileType(filePath);
+		if(type.equals("xls")){
+			return ExcelUtil.import2003(filePath, sheetIndex);
+		}else if(type.equals("xlsx")){
+			return ExcelUtil.import2007(filePath, sheetIndex);
+		}else{
+			return null;
+		}
+	}
 	
 	public static ArrayList<ArrayList<String>> import2003(String filePath, int sheetIndex) {
 		//logger.info("import2003 - filePath=" + filePath);
