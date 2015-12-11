@@ -34,15 +34,12 @@ public class SHA1Util {
 
 	/**
 	 * 获取文件SHA1
-	 * @param file 文件对象【java.io.File】
+	 * @param in 【java.io.FileInputStream】
 	 * @return
 	 */
-	public static String SHA1(File file) {
+	public static String SHA1(FileInputStream in) {
 
-		FileInputStream in = null;
-		
 		try {
-			in = new FileInputStream(file);
 			MessageDigest digest = MessageDigest.getInstance("SHA-1");
 			byte[] buffer = new byte[1024 * 1024 * 10];
 			int len = 0;
@@ -70,15 +67,7 @@ public class SHA1Util {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			if (null != in) {
-				try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}  
-			}
-		}
+		} 
 
 		return "";
 	}
@@ -86,8 +75,16 @@ public class SHA1Util {
 	public static void main(String[] args) {
 		/*String result = SHA1Util.SHA1("123123");
 		System.out.println(result);*/
-		File file = new File("d:/project/产品/观影、相册、设备绑定/v1.1/接口设计.docx");
-		String result = SHA1Util.SHA1(file);
-		System.out.println(result);
+		try {
+			File file = new File("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
+			FileInputStream in = new FileInputStream(file);
+			String result = SHA1Util.SHA1(in);
+			in.close();
+			System.out.println(result);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
