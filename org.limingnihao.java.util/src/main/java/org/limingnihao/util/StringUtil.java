@@ -136,7 +136,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean isMobile(String str) {
-		Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
+		Pattern p = Pattern.compile("^[1][3,4,5,8][0-9]{9}$");
 		Matcher m = p.matcher(str);
 		return m.matches();
 	}
@@ -150,6 +150,7 @@ public class StringUtil {
 	public static void main(String[] args) {
 //		System.out.println(unicodeConvert("\\u627F\\u5FB7"));
 //        System.out.println(decode("%E3%80%90%E7%9F%AD%E4%BF%A1%E9%80%9A%E3%80%91%E6%82%A8%E7%9A%84%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%9A888888"));
-        System.out.println(isIdentityCard("152625198901272515"));
+//        System.out.println(isIdentityCard("152625198901272515"));
+        System.out.println(isMobile("18310862221"));
     }
 }
