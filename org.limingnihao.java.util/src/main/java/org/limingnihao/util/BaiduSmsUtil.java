@@ -13,6 +13,8 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 百度短信平台(短信通)工具
@@ -97,8 +99,8 @@ public class BaiduSmsUtil {
     }
 
     public static void main(String[] args) {
-        BaiduSmsBean result = BaiduSmsUtil.sendMessage(httpUrl, apikey, smsSign, "18610968617", "我是李鹏辉");
-        System.out.println(result);
+//        BaiduSmsBean result = BaiduSmsUtil.sendMessage(httpUrl, apikey, smsSign, "18610968617", "我是李鹏辉");
+//        System.out.println(result);
 
 //        BaiduSmsBean bean = BaiduSmsUtil.xmlToBean("<?xml version=\"1.0\" encoding=\"utf-8\" ?><returnsms>\n" +
 //                " <returnstatus>Success</returnstatus>\n" +
@@ -107,6 +109,15 @@ public class BaiduSmsUtil {
 //                " <taskID>384739</taskID>\n" +
 //                " <successCounts>1</successCounts></returnsms>\n");
 //        System.out.println(bean);
+        Map<String, String> params = new HashMap<>();
+        params.put("name","18610968617");
+        params.put("pwd", "6D6EF5C672BB97912791C5A18BCE");
+        params.put("mobile", "13693585729");
+        params.put("content", "您的验证码是456534，如非本人操作请忽略");
+        params.put("sign", "智慧社区");
+        params.put("type", "pt");
+        String a = HTTPUtil.sendPostHttpRequest("http://web.cr6868.com/asmx/smsservice.aspx", params);
+        System.out.println(a);
     }
 
 }

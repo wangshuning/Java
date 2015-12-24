@@ -2,6 +2,7 @@ package org.limingnihao.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -151,6 +152,12 @@ public class StringUtil {
 //		System.out.println(unicodeConvert("\\u627F\\u5FB7"));
 //        System.out.println(decode("%E3%80%90%E7%9F%AD%E4%BF%A1%E9%80%9A%E3%80%91%E6%82%A8%E7%9A%84%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%9A888888"));
 //        System.out.println(isIdentityCard("152625198901272515"));
-        System.out.println(isMobile("18310862221"));
+//        System.out.println(isMobile("18310862221"));
+
+        try {
+            System.out.println(URLEncoder.encode("interface/family/getProfile.do?familyId=2894123", "utf-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 }
