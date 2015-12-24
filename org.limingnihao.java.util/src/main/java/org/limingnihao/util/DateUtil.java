@@ -32,8 +32,8 @@ public class DateUtil {
 
 //        System.out.print(getTodayScope(new Date()).getStartDate() + "-" + getTodayScope(new Date()).getEndDate());
 //        System.out.print(getWeekScope(new Date()).getStartDate() + "-" + getWeekScope(new Date()).getEndDate());
-//        System.out.print(getMonthScope(new Date()).getStartDate() + "-" + getMonthScope(new Date()).getEndDate());
-        System.out.print(getYearScope(new Date()).getStartDate() + "-" + getYearScope(new Date()).getEndDate());
+        System.out.print(getMonthScope(DateUtil.parse("2015-11-11")).getStartDate() + "-" + getMonthScope(DateUtil.parse("2015-11-11")).getEndDate());
+//        System.out.print(getYearScope(new Date()).getStartDate() + "-" + getYearScope(new Date()).getEndDate());
     }
 
 
@@ -680,6 +680,7 @@ public class DateUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         Calendar start = Calendar.getInstance();
+        start.setTime(calendar.getTime());
         start.set(Calendar.DAY_OF_MONTH, 1);
         start.set(Calendar.HOUR_OF_DAY, 0);
         start.set(Calendar.MINUTE, 0);
@@ -705,6 +706,7 @@ public class DateUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         Calendar start = Calendar.getInstance();
+        start.setTime(calendar.getTime());
         start.set(Calendar.DAY_OF_YEAR, 1);
         start.set(Calendar.HOUR_OF_DAY, 0);
         start.set(Calendar.MINUTE, 0);
