@@ -8,10 +8,19 @@ public class FileBean {
 	private Long fileSize;
 	private String folderPath;
 	private String fileMd5;
+	private boolean isDirectory;
 
-
+	@Override
 	public String toString() {
-		return "[FileBean] - fileName=" + fileName + ", saveName=" + saveName + ", fileType=" + fileType + ", fileSize=" + fileSize + ", folderPath=" + folderPath + ", fileMd5=" + fileMd5;
+		return "FileBean{" +
+				"fileName='" + fileName + '\'' +
+				", saveName='" + saveName + '\'' +
+				", fileType='" + fileType + '\'' +
+				", fileSize=" + fileSize +
+				", folderPath='" + folderPath + '\'' +
+				", fileMd5='" + fileMd5 + '\'' +
+				", isDirectory=" + isDirectory +
+				'}';
 	}
 
 	public String getFileName() {
@@ -62,4 +71,11 @@ public class FileBean {
 		this.fileMd5 = fileMd5;
 	}
 
+	public boolean getIsDirectory() {
+		return isDirectory;
+	}
+
+	public void setIsDirectory(boolean directory) {
+		isDirectory = directory;
+	}
 }

@@ -39,6 +39,11 @@ public class ReadProperty {
 		if (props == null) {
 			loadProperties();
 		}
-		return props.getProperty(propName);
+		String value = props.getProperty(propName);
+		if(value == null){
+			return "";
+		}
+		return value;
 	}
+	
 }

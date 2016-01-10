@@ -96,6 +96,14 @@ public class NumberUtil {
 		return bd.doubleValue();
 	}
 
+	public static BigDecimal toBigDecimal(Double value, int scale){
+		if(value != null){
+			return new BigDecimal(value).setScale(10, BigDecimal.ROUND_HALF_UP);
+		}else{
+			return new BigDecimal(0).setScale(10, BigDecimal.ROUND_HALF_UP);
+		}
+	}
+
 	/**
 	 * 是否是正整数 大于 0的int类型
 	 * 

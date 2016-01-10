@@ -4,10 +4,10 @@
 	<groupId>org.limingnihao.java</groupId>
 	<artifactId>org.limingnihao.java.util</artifactId>
 	<version>2.0.0</version>
-	<name>org.liming.java.util</name>
+	<name>org.limingnihao.java.util</name>
 	<!-- 全局属性配置 -->
 	<properties>
-		<project.build.name>org.liming.java.util</project.build.name>
+		<project.build.name>org.limingnihao.java.util</project.build.name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<build>
@@ -254,6 +254,21 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>3.1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>3.1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-ws-security</artifactId>
+			<version>3.1.4</version>
 		</dependency>
 	</dependencies>
 </project>

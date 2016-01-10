@@ -50,7 +50,7 @@ public class StringUtil {
 	}
 
 	/**
-	 * 编码
+	 * 解码
 	 * 
 	 * @param value
 	 * @return
@@ -63,6 +63,26 @@ public class StringUtil {
 		if (StringUtils.isNotBlank(value)) {
 			try {
 				return URLDecoder.decode(value, charset);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
+		return "";
+	}
+
+	/**
+	 * 编码
+	 * @param value
+	 * @return
+     */
+	public static String encode(String value){
+		return encode(value, "UTF-8");
+	}
+
+	public static String encode(String value, String charset){
+		if (StringUtils.isNotBlank(value)) {
+			try {
+				return URLEncoder.encode(value, charset);
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
@@ -154,10 +174,13 @@ public class StringUtil {
 //        System.out.println(isIdentityCard("152625198901272515"));
 //        System.out.println(isMobile("18310862221"));
 
+		String s1 = StringUtil.encode("我");
+		String s2 = StringUtil.decode(s1);
+		System.out.println(s1 + " - " + s2);
         try {
             System.out.println(URLEncoder.encode("interface/family/getProfile.do?familyId=2894123", "utf-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        } catch (UnsupportedEncodingException e2) {
+            e2.printStackTrace();
         }
     }
 }

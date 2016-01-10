@@ -74,7 +74,7 @@ public class ExcelUtil {
 	}
 	
 	public static ArrayList<ArrayList<String>> import2003(String filePath, int sheetIndex) {
-		//logger.info("import2003 - filePath=" + filePath);
+		logger.info("import2003 - filePath=" + filePath + ", sheetIndex=" + sheetIndex);
 		File file = new File(filePath);
 		if (!file.exists()) {
 			logger.info("import2003 - 文件不存在");
@@ -96,9 +96,9 @@ public class ExcelUtil {
 				if(rowNumLast <=0){
 					continue;
 				}
-				//logger.info("import2003 - 2.sheet=" + k + ", rowNumLast=" + rowNumLast);
+				logger.info("import2003 - filePath=" + filePath + ", sheet=" + k + ", rowNumLast=" + rowNumLast);
 				// i循环行
-				for (int i = 0; i < rowNumLast; i++) {
+				for (int i = 0; i <= rowNumLast; i++) {
 					ArrayList<String> columnList = new ArrayList<String>();
 					// 得到Excel工作表的行
 					HSSFRow row = sheet.getRow(i);
@@ -121,7 +121,7 @@ public class ExcelUtil {
 						}
 						//logger.info("~~~~~~[" + i + "," + j + "] - cell=" + cell + ", value=" + value);
 					}
-//					logger.info("i=" + i + "" + Arrays.toString(columnList.toArray()));
+					logger.info("i=" + i + "" + Arrays.toString(columnList.toArray()));
 					rowList.add(columnList);
 				}
 			}
@@ -133,7 +133,7 @@ public class ExcelUtil {
 	}
 
 	public static ArrayList<ArrayList<String>> import2007(String filePath, int sheetIndex) {
-		//logger.info("import2007 - filePath=" + filePath);
+		logger.info("import2007 - filePath=" + filePath + ", sheetIndex=" + sheetIndex);
 		File file = new File(filePath);
 		if (!file.exists()) {
 			logger.info("import2007 - 文件不存在");
@@ -151,7 +151,7 @@ public class ExcelUtil {
 			for(int k=0; k<sheetIndex; k++){
 				XSSFSheet sheet = workbook.getSheetAt(k);
 				int rowNumLast = sheet.getLastRowNum();
-				logger.info("import2007 - filePath=" + filePath + ", numberOfSheets=" + max + ", sheet=" + k + ", rowNumLast=" + rowNumLast);
+				logger.info("import2007 - filePath=" + filePath + ", sheet=" + k + ", rowNumLast=" + rowNumLast);
 				if(rowNumLast <=0){
 					continue;
 				}
@@ -179,7 +179,7 @@ public class ExcelUtil {
 						}
 						//logger.info("~~~~~~[" + i + "," + j + "] - " + cell.getCellType() + ", cell=" + cell + ", value=" + value);
 					}
-					//logger.info("i=" + i + "" + Arrays.toString(columnList.toArray()));
+					logger.info("i=" + i + "" + Arrays.toString(columnList.toArray()));
 					rowList.add(columnList);
 				}
 			}

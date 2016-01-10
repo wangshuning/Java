@@ -48,15 +48,16 @@ public class MySqlUtil {
         } catch (SQLException e) {
             e.printStackTrace();
             logger.info("execute - error - sql=" + sql);
-        } finally {
-            if(pst !=null ){
-                try {
-                    pst.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+//        finally {
+//            if(pst !=null ){
+//                try {
+//                    pst.close();
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
         return false;
     }
 
@@ -79,15 +80,16 @@ public class MySqlUtil {
         } catch (SQLException e) {
             e.printStackTrace();
             logger.info("execute - error - sql=" + sql);
-        } finally {
-            if(pst !=null ){
-                try {
-                    pst.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+//        finally {
+//            if(pst !=null ){
+//                try {
+//                    pst.close();
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
         return 0;
     }
 
@@ -141,17 +143,10 @@ public class MySqlUtil {
                 cst.setString(key.toString(), val.toString());
             }
             return cst.execute(sql);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
             logger.info("procedure - error - sql=" + sql);
-        } finally {
-            if(cst !=null ){
-                try {
-                    cst.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return false;
     }

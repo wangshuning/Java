@@ -37,10 +37,15 @@ public class FTPUtil {
         try {
             this.ftp = new FTPClient();
             this.ftp.connect(url, port);
+            this.ftp.setControlEncoding("UTF-8");
+
             boolean login = this.ftp.login(username, password);
-            logger.info("login - username=" + username + ", password=" + password + ", login=" + login);
             int replyCode = this.ftp.getReplyCode();
-            logger.info("login - username=" + username + ", password=" + password + ", replyCode=" + replyCode + ", isPositiveCompletion=" + FTPReply.isPositiveCompletion(replyCode));
+            this.ftp.setFileType(FTPClient.BINARY_FILE_TYPE);
+            this.ftp.enterLocalPassiveMode();
+
+            logger.info("login - url=" + url + ":" + port + ", username=" + username + ", password=" + password + ", replyCode=" + replyCode + ", isPositiveCompletion=" + FTPReply.isPositiveCompletion(replyCode) +
+                ", names=" + Arrays.toString(this.ftp.listNames()));
             if (!FTPReply.isPositiveCompletion(replyCode)) {
                 this.ftp.disconnect();
                 return false;
@@ -73,18 +78,18 @@ public class FTPUtil {
      * @return
      */
     public boolean uploadFile(String ftpPath, String filePath) {
-        logger.info("uploadFile - start - ftpPath=" + ftpPath + ", filePath=" + filePath + ", isConnected=" + this.ftp.isConnected() + ", isAvailable=" + this.ftp.isAvailable());
+        logger.info("uploadFile - 0 - start - ftpPath=" + ftpPath + ", filePath=" + filePath + ", isConnected=" + this.ftp.isConnected() + ", isAvailable=" + this.ftp.isAvailable());
 
         boolean success = false;
         InputStream is = null;
         try {
             boolean changeDir = this.ftp.changeWorkingDirectory(ftpPath);
-            logger.info("uploadFile - ftpPath=" + ftpPath  + ", filePath=" + filePath + ", changeDir=" + changeDir);
+            logger.info("uploadFile - 1 - changeDir - ftpPath=" + ftpPath  + ", filePath=" + filePath + ", changeDir=" + changeDir);
             File file = new File(filePath);
             //logger.info("uploadFile - filePath=" + filePath + ", exists=" + file.exists() + ", canRead=" + file.canRead());
             is = new FileInputStream(file);
             boolean result = this.ftp.storeFile(file.getName(), is);
-            logger.info("uploadFile - over - ftpPath=" + ftpPath + ", filePath=" + filePath + ", result=" + result);
+            logger.info("uploadFile - 2 - storeFile - ftpPath=" + ftpPath + ", filePath=" + filePath + ", result=" + result);
             success = true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,7 +113,7 @@ public class FTPUtil {
      * @return
      */
     public boolean downloadFile(String ftpPath, String fileName, String localPath){
-        logger.info("downloadFile - start - ftpPath=" + ftpPath + ", fileName=" + fileName + ", localPath=" + localPath + ", isConnected=" + this.ftp.isConnected() + ", isAvailable=" + this.ftp.isAvailable());
+        logger.info("downloadFile - 0 - start - ftpPath=" + ftpPath + ", fileName=" + fileName + ", localPath=" + localPath + ", isConnected=" + this.ftp.isConnected() + ", isAvailable=" + this.ftp.isAvailable());
         boolean success = false;
         String localFile = localPath + File.separator + fileName;
         OutputStream os = null;
@@ -118,10 +123,10 @@ public class FTPUtil {
                 local.mkdirs();
             }
             boolean changeDir = this.ftp.changeWorkingDirectory(ftpPath);
-            //logger.info("downloadFile - 1 - ftpPath=" + ftpPath + ", changeDir=" + changeDir);
+            logger.info("downloadFile - 1 - changeDir - ftpPath=" + ftpPath + ", fileName=" + fileName + ", localPath=" + localPath  + ", changeDir=" + changeDir);
             os = new FileOutputStream(localFile);
             boolean downFile = this.ftp.retrieveFile(fileName, os);
-            //logger.info("downloadFile - 2 - localFile=" + localFile);
+            logger.info("downloadFile - 2 - retrieveFile - ftpPath=" + ftpPath + ", fileName=" + fileName + ", localPath=" + localPath  + ", downFile=" + downFile);
             os.close();
             success = true;
         } catch (IOException e) {
@@ -136,8 +141,35 @@ public class FTPUtil {
                 }
             }
         }
-        logger.info("downloadFile - over - ftpPath=" + ftpPath + ", fileName=" + fileName + ", localPath=" + localPath + ", success=" + success);
+        logger.info("downloadFile - 3 - over - success=" + success + ", ftpPath=" + ftpPath + ", fileName=" + fileName + ", localPath=" + localPath );
         return success;
+    }
+
+    /**
+     * 获取文件列表
+     * @return
+     */
+    public List<FileBean> getFileList() {
+        logger.info("getFileList - isConnected=" + this.ftp.isConnected() + ", isAvailable=" + this.ftp.isAvailable());
+        if(!this.ftp.isConnected()){
+            return null;
+        }
+        List<FileBean> list = new ArrayList<FileBean>();
+        try{
+            FTPFile[] files = this.ftp.listFiles();
+            for(FTPFile f: files){
+                FileBean bean = new FileBean();
+                bean.setFileSize(f.getSize());
+                bean.setFileName(f.getName());
+                bean.setSaveName(f.getName());
+                bean.setFolderPath("");
+                list.add(bean);
+                logger.info("getFileList - " + bean);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 
     /**
@@ -146,7 +178,7 @@ public class FTPUtil {
      * @return
      */
     public List<FileBean> getFileList(String ftpPath) {
-        logger.info("getFileList - ftpPath=" + ftpPath + ", isConnected=" + this.ftp.isConnected() + ", isAvailable=" + this.ftp.isAvailable());
+//        logger.info("getFileList - ftpPath=" + ftpPath + ", isConnected=" + this.ftp.isConnected() + ", isAvailable=" + this.ftp.isAvailable());
         if(!this.ftp.isConnected()){
             return null;
         }
@@ -159,6 +191,7 @@ public class FTPUtil {
                 bean.setFileName(f.getName());
                 bean.setSaveName(f.getName());
                 bean.setFolderPath(ftpPath);
+                bean.setIsDirectory(f.isDirectory());
                 list.add(bean);
                 logger.info("getFileList - ftpPath=" + ftpPath + ", " +bean);
             }
@@ -188,14 +221,14 @@ public class FTPUtil {
                     bean.setFileName(f.getName());
                     bean.setSaveName(f.getName());
                     bean.setFolderPath(ftpPath);
-                    logger.info("getFile - ftpPath=" + ftpPath + ", " +bean);
+                    logger.info("getFile - ftpPath=" + ftpPath + ", fileName=" + fileName + ", " +bean);
                     return bean;
                 }
             }
         } catch (Exception e){
             e.printStackTrace();
         }
-        logger.info("getFile - ftpPath=" + ftpPath + ", " +null);
+        logger.info("getFile - ftpPath=" + ftpPath + ", fileName=" + fileName + ", " +null);
         return null;
     }
 
