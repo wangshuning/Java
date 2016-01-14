@@ -93,5 +93,11 @@
     <orderEntry type="library" name="Maven: org.apache.wss4j:wss4j-ws-security-stax:2.1.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.wss4j:wss4j-bindings:2.1.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.wss4j:wss4j-ws-security-policy-stax:2.1.4" level="project" />
+    <orderEntry type="library" name="Maven: com.aliyun.oss:aliyun-sdk-oss:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.jdom:jdom:1.1" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.json-lib:json-lib:jdk15:2.4" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.ezmorph:ezmorph:1.0.6" level="project" />
   </component>
 </module>

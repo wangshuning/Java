@@ -45,7 +45,7 @@ public class LoginSoapInterceptor extends AbstractSoapInterceptor {
 //        Element eUsername = doc.createElement(xml_username_el);
 //        Element ePassword = doc.createElement(xml_password_el);
 
-        eHeader.setTextContent("header");
+//        eHeader.setTextContent("header");
 //        eSystem.setTextContent("dhcfcs");
 //        eUsername.setTextContent(username);
 //        ePassword.setTextContent(password);

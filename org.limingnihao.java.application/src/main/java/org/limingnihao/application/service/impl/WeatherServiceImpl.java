@@ -15,7 +15,7 @@ import org.limingnihao.application.service.model.AutoWeatherBean;
 import org.limingnihao.application.service.model.WeatherBean;
 import org.limingnihao.util.DateUtil;
 import org.limingnihao.util.GsonUtil;
-import org.limingnihao.util.HttpUtil;
+import org.limingnihao.util.HTTPUtil;
 import org.limingnihao.util.NumberUtil;
 import org.limingnihao.util.PathUtil;
 import org.limingnihao.util.StringUtil;
@@ -50,7 +50,7 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Override
 	public void autoWeatherSevenByRegionCode(String regionCode) {
-		String json = HttpUtil.sendGetHttpRequest("http://weather.123.duba.net/static/weather_info/" + regionCode + ".html");
+		String json = HTTPUtil.sendGetHttpRequest("http://weather.123.duba.net/static/weather_info/" + regionCode + ".html");
 		if (json == null || "".equals(json)) {
 			logger.info("autoWeatherSevenByRegionCode - regionCode=" + regionCode + " - http请求失败!");
 			return;

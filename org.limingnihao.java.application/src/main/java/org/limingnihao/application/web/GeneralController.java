@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.limingnihao.application.help.ApplicationHelp;
 import org.limingnihao.application.help.PageErrorHelp;
+import org.limingnihao.model.DateBean;
 import org.limingnihao.util.DateUtil;
-import org.limingnihao.util.model.DateBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

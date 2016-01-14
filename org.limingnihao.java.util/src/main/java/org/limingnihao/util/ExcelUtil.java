@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -42,12 +39,12 @@ public class ExcelUtil {
 	 * @throws RowsExceededException
 	 * @throws WriteException
 	 */
-	public static void exportExcel(final OutputStream outputStream, final Map<String, List<List<String>>> data) throws IOException, RowsExceededException, WriteException {
+	public static void exportExcel(final OutputStream outputStream, final HashMap<String, ArrayList<ArrayList<String>>> data) throws IOException, RowsExceededException, WriteException {
 		WritableWorkbook workbook = Workbook.createWorkbook(outputStream);
 		int s = 0;
 		for (final String label : data.keySet()) {
 			WritableSheet sheet = workbook.createSheet(label.replaceAll("\\[|\\]|\\\\|\\:|\\?|\\/", "_"), s++);
-			List<List<String>> value = data.get(label);
+			ArrayList<ArrayList<String>> value = data.get(label);
 			for (int i = 0; i < value.size(); i++) {
 				List<String> items = value.get(i);
 				for (int j = 0; j < items.size(); j++) {
@@ -96,7 +93,7 @@ public class ExcelUtil {
 				if(rowNumLast <=0){
 					continue;
 				}
-				logger.info("import2003 - filePath=" + filePath + ", sheet=" + k + ", rowNumLast=" + rowNumLast);
+				//logger.info("import2003 - filePath=" + filePath + ", sheet=" + k + ", rowNumLast=" + rowNumLast);
 				// i循环行
 				for (int i = 0; i <= rowNumLast; i++) {
 					ArrayList<String> columnList = new ArrayList<String>();
@@ -121,7 +118,7 @@ public class ExcelUtil {
 						}
 						//logger.info("~~~~~~[" + i + "," + j + "] - cell=" + cell + ", value=" + value);
 					}
-					logger.info("i=" + i + "" + Arrays.toString(columnList.toArray()));
+					//logger.info("i=" + i + "" + Arrays.toString(columnList.toArray()));
 					rowList.add(columnList);
 				}
 			}
@@ -179,7 +176,7 @@ public class ExcelUtil {
 						}
 						//logger.info("~~~~~~[" + i + "," + j + "] - " + cell.getCellType() + ", cell=" + cell + ", value=" + value);
 					}
-					logger.info("i=" + i + "" + Arrays.toString(columnList.toArray()));
+					//logger.info("i=" + i + "" + Arrays.toString(columnList.toArray()));
 					rowList.add(columnList);
 				}
 			}

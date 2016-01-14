@@ -2,7 +2,13 @@ package org.limingnihao.application.service;
 
 import java.util.List;
 
-import org.limingnihao.application.service.exception.*;
+import org.limingnihao.application.service.exception.GroupNullPointerException;
+import org.limingnihao.application.service.exception.MessageServiceErrorException;
+import org.limingnihao.application.service.exception.PasswordErrorException;
+import org.limingnihao.application.service.exception.RoleNullPointerException;
+import org.limingnihao.application.service.exception.UserNullPointerException;
+import org.limingnihao.application.service.exception.UserUsingException;
+import org.limingnihao.application.service.exception.UsernameExistsException;
 import org.limingnihao.application.service.model.ListBean;
 import org.limingnihao.application.service.model.UserBean;
 import org.springframework.transaction.annotation.Transactional;
