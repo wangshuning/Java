@@ -4,13 +4,16 @@ import com.aliyun.oss.ClientConfiguration;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.*;
 import org.junit.Test;
+import org.limingnihao.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 /**
  * 阿里云文件操作
@@ -52,9 +55,14 @@ public class OSSUtil {
 
     }
 
-    public String createFile(String key, String filePath){
-        PutObjectResult result = client.putObject(bucketName, key, new File(filePath));
-        return "http://" + bucketName + "." + endpoint + "/" + key;
+    public String createFile(String key, String filePath) throws Exception {
+        logger.info("createFile - key=" + key + ", filePath=" + filePath);
+
+        if(FileUtil.isExists(filePath)){
+            PutObjectResult result = client.putObject(bucketName, key, new File(filePath));
+            return "http://" + bucketName + "." + endpoint + "/" + key;
+        }
+        throw new FileNotFoundException("文件不存在!");
     }
 
     public String createFile(String key, InputStream is){
@@ -76,9 +84,14 @@ public class OSSUtil {
     public static void main(String agrs[]){
         OSSUtil oss = new OSSUtil();
         oss.connect();
-        oss.createFolder("asdfa/adfasdf");
-        String s = oss.createFile("goods/1.jpg", "/Users/lishiming/Pictures/IMG_1707.jpg");
-        System.out.println(s);
+//        oss.createFolder("asdfa/adfasdf");
+        try{
+            String s = oss.createFile("gooddddds/1.jpg", "/Users/lishiming/Pictures/IMG_1707.jpg");
+            String s2 = oss.createFile("gooddddds/1.jpg", "/Users/lishiming/Pictures/IMG_1707.jpg");
+            String s3 = oss.createFile("gooddddds/1.jpg", "/Users/lishiming/Pictures/IMG_1707.jpg");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

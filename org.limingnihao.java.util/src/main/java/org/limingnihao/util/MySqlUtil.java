@@ -25,13 +25,14 @@ public class MySqlUtil {
         this.connection = connection;
     }
 
-    public MySqlUtil(String url, String username, String password) {
+    public MySqlUtil(String url, String username, String password) throws SQLException {
+        logger.info("MySqlUtil - url=" + url + ", username=" + username + ", password=" + password);
         try {
             Class.forName("com.mysql.jdbc.Driver");
             this.connection = DriverManager.getConnection(url, username, password);
-            logger.info("MySqlUtil - url=" + url + ", username=" + username + ", password=" + password);
         } catch (Exception e) {
             e.printStackTrace();
+            throw new SQLException("链接mysql出现错误");
         }
     }
 
@@ -40,7 +41,7 @@ public class MySqlUtil {
      * @param sql
      * @return
      */
-    public boolean execute(String sql){
+    public boolean execute(String sql) throws SQLException {
         PreparedStatement pst = null;
         try {
             pst = this.connection.prepareStatement(sql);
@@ -48,6 +49,7 @@ public class MySqlUtil {
         } catch (SQLException e) {
             e.printStackTrace();
             logger.info("execute - error - sql=" + sql);
+            throw e;
         }
 //        finally {
 //            if(pst !=null ){
@@ -58,7 +60,6 @@ public class MySqlUtil {
 //                }
 //            }
 //        }
-        return false;
     }
 
 
@@ -67,7 +68,7 @@ public class MySqlUtil {
      * @param sql
      * @return
      */
-    public int executeUpdate(String sql, List<Object> pras){
+    public int executeUpdate(String sql, List<Object> pras) throws SQLException {
         PreparedStatement pst = null;
         try {
             pst = this.connection.prepareStatement(sql);
@@ -80,6 +81,7 @@ public class MySqlUtil {
         } catch (SQLException e) {
             e.printStackTrace();
             logger.info("execute - error - sql=" + sql);
+            throw e;
         }
 //        finally {
 //            if(pst !=null ){
@@ -90,7 +92,6 @@ public class MySqlUtil {
 //                }
 //            }
 //        }
-        return 0;
     }
 
     /**
@@ -99,7 +100,7 @@ public class MySqlUtil {
      * @param pras
      * @return
      */
-    public ResultSet executeQuery(String sql, List<Object> pras){
+    public ResultSet executeQuery(String sql, List<Object> pras) throws SQLException {
         PreparedStatement pst = null;
         try {
             pst = this.connection.prepareStatement(sql);
@@ -112,6 +113,7 @@ public class MySqlUtil {
         } catch (SQLException e) {
             e.printStackTrace();
             logger.info("executeQuery - error - sql=" + sql);
+            throw e;
         }
 //        finally {
 //            if(pst !=null ){
@@ -122,7 +124,6 @@ public class MySqlUtil {
 //                }
 //            }
 //        }
-        return null;
     }
 
     /**
@@ -131,7 +132,7 @@ public class MySqlUtil {
      * @param parameter
      * @return
      */
-    public boolean procedure(String sql, HashMap<String, String> parameter){
+    public boolean procedure(String sql, HashMap<String, String> parameter) throws SQLException {
         CallableStatement cst = null;
         try {
             cst = this.connection.prepareCall(sql);
@@ -147,8 +148,8 @@ public class MySqlUtil {
         catch (SQLException e) {
             e.printStackTrace();
             logger.info("procedure - error - sql=" + sql);
+            throw e;
         }
-        return false;
     }
 
     public void close() {
@@ -158,4 +159,5 @@ public class MySqlUtil {
             e.printStackTrace();
         }
     }
+
 }

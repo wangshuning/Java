@@ -70,6 +70,19 @@ public class FileUtil {
 		System.out.println(getFileType("asdkflasdf.Pdf.ad.df.dowc"));
 	}
 
+
+	/**
+	 * 文件是否存在
+	 * @param path
+	 */
+	public static boolean isExists(String path){
+		File file = new File(path);
+		if(file.exists()){
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * 输出文件到前台
 	 * 
