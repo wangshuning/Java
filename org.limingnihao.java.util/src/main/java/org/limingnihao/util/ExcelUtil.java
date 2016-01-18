@@ -4,12 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.poifs.filesystem.NPOIFSFileSystem;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
@@ -165,8 +163,13 @@ public class ExcelUtil {
 						Object value = null;
 						if (cell != null) {
 							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-								Double d = cell.getNumericCellValue();
-								value = d.intValue();
+								if(HSSFDateUtil.isCellDateFormatted(cell)){
+									SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+									value =  sdf.format(HSSFDateUtil.getJavaDate(cell.getNumericCellValue())).toString();
+								}else{
+									Double d = cell.getNumericCellValue();
+									value = d.intValue();
+								}
 							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								value = cell.getStringCellValue();
 							}
@@ -174,7 +177,7 @@ public class ExcelUtil {
 						}else{
 							columnList.add("");
 						}
-						//logger.info("~~~~~~[" + i + "," + j + "] - " + cell.getCellType() + ", cell=" + cell + ", value=" + value);
+//						logger.info("~~~~~~[" + i + "," + j + "] - " + cell.getCellType() + ", cell=" + cell + ", value=" + value);
 					}
 					//logger.info("i=" + i + "" + Arrays.toString(columnList.toArray()));
 					rowList.add(columnList);
