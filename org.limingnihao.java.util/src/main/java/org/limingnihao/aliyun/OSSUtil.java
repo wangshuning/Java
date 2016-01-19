@@ -28,6 +28,13 @@ public class OSSUtil {
     private String bucketName = "dhcc-ecommerce";
     private OSSClient client = null;
 
+    public OSSUtil(){
+
+    }
+
+    public OSSUtil(String bucketName){
+        this.bucketName = bucketName;
+    }
 
     /**
      * 链接
