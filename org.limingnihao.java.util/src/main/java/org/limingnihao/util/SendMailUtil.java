@@ -12,10 +12,10 @@ import java.util.Properties;
  */
 public class SendMailUtil {
 
-    private static final String host = "smtp.126.com";
-    private static final String addresser = "tangrongbo";
-    private static final String password = "magic0815";
-    private static final String internetAddress = "tangrongbo@126.com";
+    private static final String host = "smtp.mxhichina.com";
+    private static final String addresser = "development@dhcfcs.com.cn";
+    private static final String password = "Dhcc2016";
+    private static final String internetAddress = "development@dhcfcs.com.cn";
     private static final String port = "25";
     private static final String auth = "true";
 
@@ -37,7 +37,7 @@ public class SendMailUtil {
         //1、创建session
         Session session = Session.getInstance(prop);
         //开启Session的debug模式，这样就可以查看到程序发送Email的运行状态
-        session.setDebug(true);
+        session.setDebug(false);
         //2、通过session得到transport对象
         Transport ts = session.getTransport();
         //3、使用邮箱的用户名和密码连上邮件服务器，发送邮件时，发件人需要提交邮箱的用户名和密码给smtp服务器，用户名和密码都通过验证之后才能够正常发送邮件给收件人。
