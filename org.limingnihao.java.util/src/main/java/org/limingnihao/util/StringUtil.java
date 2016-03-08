@@ -157,7 +157,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean isMobile(String str) {
-		Pattern p = Pattern.compile("^[1][3,4,5,8][0-9]{9}$");
+		Pattern p = Pattern.compile("^[1][3-9][0-9]{9}$");
 		Matcher m = p.matcher(str);
 		return m.matches();
 	}
