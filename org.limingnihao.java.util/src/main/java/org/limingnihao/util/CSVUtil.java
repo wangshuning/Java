@@ -4,6 +4,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -16,6 +17,33 @@ public class CSVUtil {
     public static void main(String args[]) {
     }
 
+
+    /**
+     * 解析csv文件
+     * @param path
+     * @return
+     */
+    public static ArrayList<ArrayList<String>> getList(String path){
+        ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+        try {
+            FileInputStream fis = new FileInputStream(path);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                line = line.replace(" ", "").replace("\"", "");
+                ArrayList<String> list = new ArrayList<>();
+                String[] vs = line.split(",");
+                for(int i=0; i<vs.length; i++){
+                    list.add(vs[i]);
+                }
+                data.add(list);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
     /**
      * 保存成文件
      * @param dataList - 数据数组
