@@ -97,6 +97,9 @@ public class ExcelUtil {
 					ArrayList<String> columnList = new ArrayList<String>();
 					// 得到Excel工作表的行
 					HSSFRow row = sheet.getRow(i);
+                    if (row == null) {
+                        continue;
+                    }
 					// j循环列
 					for (int j = 0; j < row.getLastCellNum(); j++) {
 						// 得到Excel工作表指定行的单元格
@@ -106,7 +109,7 @@ public class ExcelUtil {
 						if (cell != null) {
 							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
 								Double d = cell.getNumericCellValue();
-								value = d.intValue();
+								value = d.doubleValue();
 							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								value = cell.getStringCellValue();
 							}
@@ -155,6 +158,9 @@ public class ExcelUtil {
 					ArrayList<String> columnList = new ArrayList<String>();
 					// 得到Excel工作表的行
 					XSSFRow row = sheet.getRow(i);
+                    if (row == null) {
+                        continue;
+                    }
 					// j循环列
 					for (int j = 0; j < row.getLastCellNum(); j++) {
 						// 得到Excel工作表指定行的单元格
@@ -168,7 +174,7 @@ public class ExcelUtil {
 									value =  sdf.format(HSSFDateUtil.getJavaDate(cell.getNumericCellValue())).toString();
 								}else{
 									Double d = cell.getNumericCellValue();
-									value = d.intValue();
+									value = d.doubleValue();
 								}
 							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								value = cell.getStringCellValue();
