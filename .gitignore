@@ -20,3 +20,5 @@ org.limingnihao.java.util/target/classes/org/limingnihao/util/Md5Util.class
 org.limingnihao.java.util/target/classes/org/limingnihao/exception/AesErrorException.class
 
 org.limingnihao.java.util/target/classes/org/limingnihao/exception/ModelTypeNullException.class
+
+*.class
