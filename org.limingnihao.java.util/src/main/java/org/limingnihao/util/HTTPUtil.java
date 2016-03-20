@@ -43,9 +43,7 @@ public class HTTPUtil {
 
 	public static void main(String args[]) {
 
-		Map<String, String> bm = new HashMap<String, String>();
-		bm.put("qrcodeurl", "http://weixin.qq.com/q/20N2KXPl3pqn5Vd1mG1g");
-		String b = sendPostHttpRequest("http://weitrade.dhcfcs.com/wbhsslonline/tmpApi/qrcodegetcanum", bm);
+		String b = sendGetHttpRequest("http://123.57.211.5/file/articleJson/4890-1.json");
 		System.out.println(b);
 
 //        sendPostHttpRequestWithBasicAuth("http://localhost:9080/interface/region/getListAll.do", null, "user1", "123456");
