@@ -46,6 +46,7 @@ public class HTTPUtil {
 
     private static RequestConfig requestConfig = null;
 
+<<<<<<< HEAD
     static {
         //设置http的状态参数
         //120秒超时
@@ -66,6 +67,10 @@ public class HTTPUtil {
         bm.put("qrcodeurl", "http://weixin.qq.com/q/20N2KXPl3pqn5Vd1mG1g");
         String b = sendPostHttpRequest("http://weitrade.dhcfcs.com/wbhsslonline/tmpApi/qrcodegetcanum", bm);
         System.out.println(b);
+=======
+		String b = sendGetHttpRequest("http://123.57.211.5/file/articleJson/4890-1.json");
+		System.out.println(b);
+>>>>>>> origin/master
 
 //        sendPostHttpRequestWithBasicAuth("http://localhost:9080/interface/region/getListAll.do", null, "user1", "123456");
     }

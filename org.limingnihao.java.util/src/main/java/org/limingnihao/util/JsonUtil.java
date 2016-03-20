@@ -27,40 +27,35 @@ public class JsonUtil {
 	private static String SIMPLE_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss:SSS";
 
 	public static void main(String args[]) {
-		DateBean bean = DateUtil.getCurrentDateBean();
-		String json = JsonUtil.objectToJson(bean);
-		System.out.println(json);
-		DateBean b = (DateBean) JsonUtil.jsonToObject(DateBean.class, json);
-		System.out.println(b);
 	}
 
-	public static String objectToJson(Object targetObj) {
-		StringBuffer jsonString = new StringBuffer();
-		jsonString.append("{");
-		try {
-			for (Field field : targetObj.getClass().getDeclaredFields()) {
-				String fileName = field.getName();
-				String methodName = getMethodGetName(fileName);
-				Method method = targetObj.getClass().getMethod(methodName);
-				Object value = method.invoke(targetObj);
-				String valueString = "";
-				if (value.getClass().getName().equals(Date.class.getName())) {
-					SimpleDateFormat format = new SimpleDateFormat(SIMPLE_DATE_FORMAT);
-					valueString = format.format(value);
-				} else {
-					valueString = value.toString();
-				}
-				jsonString.append("\"" + fileName + "\": \"" + valueString + "\", ");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (jsonString.length() - jsonString.lastIndexOf(", ") == 2) {
-			jsonString = jsonString.delete(jsonString.lastIndexOf(", "), jsonString.length());
-		}
-		jsonString.append("}");
-		return jsonString.toString();
-	}
+//	public static String objectToJson(Object targetObj) {
+//		StringBuffer jsonString = new StringBuffer();
+//		jsonString.append("{");
+//		try {
+//			for (Field field : targetObj.getClass().getDeclaredFields()) {
+//				String fileName = field.getName();
+//				String methodName = getMethodGetName(fileName);
+//				Method method = targetObj.getClass().getMethod(methodName);
+//				Object value = method.invoke(targetObj);
+//				String valueString = "";
+//				if (value.getClass().getName().equals(Date.class.getName())) {
+//					SimpleDateFormat format = new SimpleDateFormat(SIMPLE_DATE_FORMAT);
+//					valueString = format.format(value);
+//				} else {
+//					valueString = value.toString();
+//				}
+//				jsonString.append("\"" + fileName + "\": \"" + valueString + "\", ");
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		if (jsonString.length() - jsonString.lastIndexOf(", ") == 2) {
+//			jsonString = jsonString.delete(jsonString.lastIndexOf(", "), jsonString.length());
+//		}
+//		jsonString.append("}");
+//		return jsonString.toString();
+//	}
 
 	@SuppressWarnings({ "rawtypes" })
 	public static Object jsonToObject(Class clazz, String jsonString) {

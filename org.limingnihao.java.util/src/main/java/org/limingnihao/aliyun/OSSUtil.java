@@ -5,6 +5,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.*;
 import org.junit.Test;
 import org.limingnihao.util.FileUtil;
+import org.limingnihao.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,7 @@ public class OSSUtil {
     private String endpoint = "oss-cn-beijing.aliyuncs.com";
     private String accessKeyId = "NiIxhX0zXR52j0xF";
     private String accessKeySecret = "Yf72eULKyZPIc2rd8smnNxNaqJOLLj";
-    private String bucketName = "dhcc-ecommerce";
+    private String bucketName = "dhcc-activity";
     private OSSClient client = null;
 
     public OSSUtil(){
@@ -62,19 +63,36 @@ public class OSSUtil {
 
     }
 
-    public String createFile(String key, String filePath) throws Exception {
-        logger.info("createFile - key=" + key + ", filePath=" + filePath);
+    public String createFile(String key, String filePath)  throws Exception{
+        return createFile(key, filePath, null);
+    }
 
+    public String createFile(String key, String filePath, String dns) throws Exception {
+        logger.info("createFile - key=" + key + ", filePath=" + filePath + ", dns=" + dns);
         if(FileUtil.isExists(filePath)){
             PutObjectResult result = client.putObject(bucketName, key, new File(filePath));
-            return "http://" + bucketName + "." + endpoint + "/" + key;
+            if(StringUtil.isNotBlank(dns)){
+                return dns + "/" + key;
+            }
+            else{
+                return "http://" + bucketName + "." + endpoint + "/" + key;
+            }
         }
         throw new FileNotFoundException("文件不存在!");
     }
 
     public String createFile(String key, InputStream is){
+        return createFile(key, is, null);
+    }
+
+    public String createFile(String key, InputStream is, String dns){
         PutObjectResult result = client.putObject(bucketName, key, is);
-        return "http://" + bucketName + "." + endpoint + "/" + key;
+        if(StringUtil.isNotBlank(dns)){
+            return dns + "/" + key;
+        }
+        else{
+            return "http://" + bucketName + "." + endpoint + "/" + key;
+        }
     }
 
     public boolean createFolder(String folder){
@@ -93,9 +111,8 @@ public class OSSUtil {
         oss.connect();
 //        oss.createFolder("asdfa/adfasdf");
         try{
-            String s = oss.createFile("gooddddds/1.jpg", "/Users/lishiming/Pictures/IMG_1707.jpg");
-            String s2 = oss.createFile("gooddddds/1.jpg", "/Users/lishiming/Pictures/IMG_1707.jpg");
-            String s3 = oss.createFile("gooddddds/1.jpg", "/Users/lishiming/Pictures/IMG_1707.jpg");
+            String s = oss.createFile("goods/1.jpg", "/Users/lishiming/Pictures/算盘.jpg", "http://img-activity.kjrd.com.cn/");
+            System.out.println("" + s);
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -174,7 +175,7 @@ public class ExcelUtil {
 									value =  sdf.format(HSSFDateUtil.getJavaDate(cell.getNumericCellValue())).toString();
 								}else{
 									Double d = cell.getNumericCellValue();
-									value = d.doubleValue();
+									value = d.intValue();
 								}
 							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								value = cell.getStringCellValue();
