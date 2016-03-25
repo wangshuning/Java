@@ -21,4 +21,8 @@ org.limingnihao.java.util/target/classes/org/limingnihao/exception/AesErrorExcep
 
 org.limingnihao.java.util/target/classes/org/limingnihao/exception/ModelTypeNullException.class
 
+<<<<<<< HEAD
+*.class
+=======
 org.limingnihao.java.util/src/main/java/org/limingnihao/util/ExcelUtil.java
+>>>>>>> origin/master
