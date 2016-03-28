@@ -45,7 +45,7 @@ public class MySqlUtil {
         PreparedStatement pst = null;
         try {
             pst = this.connection.prepareStatement(sql);
-            logger.info("execute: " + sql);
+            //logger.info("execute: " + sql);
             return pst.execute();
         } catch (SQLException e) {
             e.printStackTrace();
